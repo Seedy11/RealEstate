@@ -1,5 +1,4 @@
-import React from 'react'
-import {  Container } from 'react-bootstrap'
+import React, { useEffect } from 'react'
 import crib from '../../Images/pexels-alex-staudinger-1732414.jpg'
 import crib2 from '../../Images/pexels-asad-photo-maldives-1268871.jpg'
 import crib3 from '../../Images/pexels-expect-best-323780.jpg'
@@ -9,17 +8,57 @@ import AliceCarousel from 'react-alice-carousel';
 import "react-alice-carousel/lib/alice-carousel.css";
 import Button from '../../Components/Button/Button'
 import GridContainer from '../../StyledItems/GridContainer.elements'
+import axios from 'axios';
 
 const HomeScreen = ({text}) => {
+useEffect(() => {
+  const fetchData = async () => {
+    try{
+      const response = await axios.get('https://zillow56.p.rapidapi.com/search',{headers: {
+        'X-RapidAPI-Key': '7ac5172469mshb5f78091104fb9ep181ee8jsn4e552dac05d5',
+        'X-RapidAPI-Host': 'zillow56.p.rapidapi.com'
+      },
+    });
+    console.log('response',response.data)
+    } catch (error) {
+      console.error(error)
+    }
+  };
+  fetchData()
+})
+
+// const options = {
+//   method: 'GET',
+//   url: 'https://realtymole-rental-estimate-v1.p.rapidapi.com/rentalPrice',
+//   params: {
+//     address: '5500 Grand Lake Drive, San Antonio, TX, 78244',
+//     propertyType: 'Single Family',
+//     bedrooms: '4',
+//     bathrooms: '2',
+//     squareFootage: '1600',
+//     compCount: '5'
+//   },
+//   headers: {
+//     'X-RapidAPI-Key': '7ac5172469mshb5f78091104fb9ep181ee8jsn4e552dac05d5',
+//     'X-RapidAPI-Host': 'realtymole-rental-estimate-v1.p.rapidapi.com'
+//   }
+// };
+
+// try {
+// 	const response =  axios.request(options);
+// 	console.log(response.data);
+// } catch (error) {
+// 	console.error(error);
+// }
   return (
     <>
 
     <ImageWrapper>
         <AliceCarousel autoPlay autoPlayInterval="2000">
-      <img src={crib} classNamename="sliderimg" />
-      <img src={crib2} classNamename="sliderimg" />
-      <img src={crib3} classNamename="sliderimg" />
-      <img src={crib4} classNamename="sliderimg" />
+      <img src={crib} className="sliderimg" />
+      <img src={crib2} className="sliderimg" />
+      <img src={crib3} className="sliderimg" />
+      <img src={crib4} className="sliderimg" />
       </AliceCarousel>
     </ImageWrapper>
 

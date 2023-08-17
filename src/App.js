@@ -8,6 +8,7 @@ import Letting from './Screen/Letting/Letting';
 import Login from './Screen/Login/Login';
 import Register from './Screen/Register/Register';
 import Footer from './Components/Footer/Footer'
+import Mortgage from './Screen/Mortgage/Mortgage';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
         <Route path='/' element={<HomeScreen />}/>
         <Route path='login' element={<Login />}/>
         <Route path='letting' element={<Letting />}/>
-        
+        <Route path='mortgage' element={<Mortgage />}/>
         <Route path='login/register' element={<Register />}/>
       </Routes>
       <Footer />

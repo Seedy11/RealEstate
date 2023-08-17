@@ -23,7 +23,7 @@ function Header() {
           <Nav.Link><Link to='/' style={{textDecoration: 'none',}}>Home</Link></Nav.Link>
           <Nav.Link to="login"><Link to="login" style={{textDecoration: 'none',}}>Login</Link></Nav.Link>
           <Nav.Link href="#action/3.2">
-              <Link to="buying" style={{textDecoration: 'none',}}>Buying</Link>
+              <Link to="mortgage" style={{textDecoration: 'none',}}>Mortgage</Link>
               </Nav.Link>
               <Nav.Link href="#action/3.1"><Link to="letting" style={{textDecoration: 'none',}}>Letting</Link></Nav.Link>
           

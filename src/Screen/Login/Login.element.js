@@ -3,6 +3,7 @@ import styled from "styled-components";
 const FormContainer = styled.h2 `
  background-color: white;
  padding : 5rem 25rem;
+ font-size: 1.5rem;
   text-align: center;
   border-radius: 1rem;
   margin: 5rem 0rem;

@@ -9,12 +9,17 @@ const Register = () => {
       <Form>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>First Name</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="name" placeholder="First Name" />
         
       </Form.Group>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Last Name</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" />
+        <Form.Control type="name" placeholder="Last Name" />
+        
+      </Form.Group>
+      <Form.Group className="mb-3" controlId="formBasicEmail">
+        <Form.Label>Email </Form.Label>
+        <Form.Control type="email" placeholder="email address" />
         
       </Form.Group>
 
