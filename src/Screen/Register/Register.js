@@ -1,13 +1,13 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Button, Container, Form } from "react-bootstrap";
+import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FormContainer from "../Login/Login.element";
 import { useNavigate } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 import { addedUser } from "../../redux/slice/register";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const Register = () => {
   const [firstName, setFirstName] = useState("");
