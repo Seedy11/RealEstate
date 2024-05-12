@@ -11,6 +11,7 @@ import Login from "./Screen/Login/Login";
 import Register from "./Screen/Register/Register";
 import Footer from "./Components/Footer/Footer";
 import Mortgage from "./Screen/Mortgage/Mortgage";
+import RentalForm from "./Screen/RentalForm/RentalForm";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path='login' element={<Login />} />
           <Route path='letting' element={<Letting />} />
           <Route path='mortgage' element={<Mortgage />} />
+          <Route path='rentalForm' element={<RentalForm />} />
           <Route path='login/register' element={<Register />} />
         </Routes>
         <Footer />

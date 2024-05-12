@@ -8,39 +8,53 @@ import { useNavigate } from "react-router-dom";
 import { nanoid } from "@reduxjs/toolkit";
 import { addedUser } from "../../redux/slice/register";
 import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const Register = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [first_Name, setFirstName] = useState("");
+  const [Last_Name, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [tenant_password, setPassword] = useState("");
   const [rePassword, setRePassword] = useState("");
   const [errorMessage, setErrorMessage] = useState(false);
   const id = nanoid();
   const dispatch = useDispatch();
   const navigation = useNavigate();
 
-  const userData = {
-    userId: id,
-    firstName: firstName,
-    LastName: lastName,
-    Email: email,
-    Password: password,
-    reTypePassword: rePassword,
-  };
+  // const userData = {
+  //   tenant_id: id,
+  //   first_Name: first_Name,
+  //   Last_Name: Last_Name,
+  //   Email: email,
+  //   Password: tenant_password,
+  //   // reTypePassword: rePassword,
+  // };
 
-  const userValidation = (e) => {
-    if (!firstName || !lastName || !email || !password || !rePassword)
-      setErrorMessage(true);
-    else if (password === rePassword) {
-      dispatch(addedUser(userData));
-      setErrorMessage(false);
-      navigation("/letting");
-    } else {
-      setErrorMessage(true);
-    }
-  };
+  // const userValidation = (e) => {
+  //   if (!firstName || !lastName || !email || !password || !rePassword)
+  //     setErrorMessage(true);
+  //   else if (password === rePassword) {
+  //     dispatch(addedUser(userData));
+  //     setErrorMessage(false);
+  //     navigation("/letting");
+  //   } else {
+  //     setErrorMessage(true);
+  //   }
+  // };
 
+  const postData = () => {
+    axios
+      .post("http://localhost:3001/create", {
+        first_Name: first_Name,
+        Last_Name: Last_Name,
+        email: email,
+        tenant_password: tenant_password,
+        tenant_id: id,
+      })
+      .then(() => {
+        console.log("success");
+      });
+  };
   return (
     <FormContainer>
       <Form>
@@ -50,7 +64,7 @@ const Register = () => {
             type='name'
             placeholder='First Name'
             onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
+            value={first_Name}
             required
           />
         </Form.Group>
@@ -60,7 +74,7 @@ const Register = () => {
             type='name'
             placeholder='Last Name'
             onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
+            value={Last_Name}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicEmail'>
@@ -73,7 +87,7 @@ const Register = () => {
           />
         </Form.Group>
 
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
+        {/* <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>Re-type Password</Form.Label>
           <Form.Control
             type='password'
@@ -81,14 +95,14 @@ const Register = () => {
             onChange={(e) => setRePassword(e.target.value)}
             value={rePassword}
           />
-        </Form.Group>
+        </Form.Group> */}
         <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>Password</Form.Label>
           <Form.Control
             type='password'
             placeholder='Password'
             onChange={(e) => setPassword(e.target.value)}
-            value={password}
+            value={tenant_password}
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicCheckbox'>
@@ -102,7 +116,8 @@ const Register = () => {
           type='submit'
           onClick={(e) => {
             e.preventDefault();
-            userValidation(e.target.value);
+            // userValidation(e.target.value);
+            postData(e.target.value);
           }}>
           Submit
         </Button>

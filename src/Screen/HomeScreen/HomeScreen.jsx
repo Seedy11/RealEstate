@@ -14,28 +14,28 @@ import GridContainer from "../../StyledItems/GridContainer.elements";
 import axios from "axios";
 
 const HomeScreen = ({ text }) => {
-  const user = useSelector((state) => state);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "https://zillow56.p.rapidapi.com/search",
-          {
-            headers: {
-              "X-RapidAPI-Key":
-                "7ac5172469mshb5f78091104fb9ep181ee8jsn4e552dac05d5",
-              "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
-            },
-          }
-        );
-        console.log("response", response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchData();
-  });
-  console.log("redux testing", user);
+  // const user = useSelector((state) => state);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get(
+  //         "https://zillow56.p.rapidapi.com/search",
+  //         {
+  //           headers: {
+  //             "X-RapidAPI-Key":
+  //               "7ac5172469mshb5f78091104fb9ep181ee8jsn4e552dac05d5",
+  //             "X-RapidAPI-Host": "zillow56.p.rapidapi.com",
+  //           },
+  //         }
+  //       );
+  //       console.log("response", response.data);
+  //     } catch (error) {
+  //       console.error(error);
+  //     }
+  //   };
+  //   fetchData();
+  // });
+  // console.log("redux testing", user);
 
   // const options = {
   //   method: 'GET',
