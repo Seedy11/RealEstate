@@ -15,8 +15,9 @@ function RentalForm() {
   const [descriptions, setDescriptions] = useState("");
   const [available_date, setAvailable_date] = useState("");
   const [bathrooms, setBathrooms] = useState("");
+  const [image_url, setImage] = useState();
 
-  const postData = () => {
+  const postData = (e) => {
     axios
       .post("http://localhost:3001/rentalProperties", {
         Address: address,
@@ -28,12 +29,26 @@ function RentalForm() {
         descriptions: descriptions,
         available_date: available_date,
         bathrooms: bathrooms,
+        // image_url: image,
       })
       .then(() => {
         console.log("success");
       });
   };
+  // console.log("image", image);
+  // const postData = async (e, image_url) => {
+  //   const formData = new FormData();
+  //   formData.append("image", image_url);
 
+  //   const result = await axios.post(
+  //     "http://localhost:3001/rentalProperties",
+  //     formData,
+  //     {
+  //       headers: { "Content-Type": "multipart/form-data" },
+  //     }
+  //   );
+  //   console.log("fgcvff", result.data);
+  // };
   return (
     <div>
       {" "}
@@ -72,26 +87,26 @@ function RentalForm() {
             <Form.Label>Post code: </Form.Label>
             <Form.Control
               type='name'
-              placeholder='City '
+              placeholder='post code'
               onChange={(e) => setZipCode(e.target.value)}
               value={zipCode}
             />
           </Form.Group>{" "}
           <Form.Group className='mb-3' controlId='formBasicEmail'>
-            <Form.Label>bedrooms: </Form.Label>
+            <Form.Label>Bedrooms: </Form.Label>
             <Form.Control
               type='name'
-              placeholder='Address'
+              placeholder='Bedrooms'
               onChange={(e) => setBedrooms(e.target.value)}
               value={bedrooms}
               required
             />
           </Form.Group>
           <Form.Group className='mb-3' controlId='formBasicEmail'>
-            <Form.Label>bathrooms: </Form.Label>
+            <Form.Label>Bathrooms: </Form.Label>
             <Form.Control
               type='name'
-              placeholder='Address'
+              placeholder='Bathrooms'
               onChange={(e) => setBathrooms(e.target.value)}
               value={bathrooms}
               required
@@ -109,8 +124,8 @@ function RentalForm() {
           <Form.Group className='mb-3' controlId='formBasicEmail'>
             <Form.Label>Descriptions: </Form.Label>
             <Form.Control
-              type='name'
-              placeholder='Address'
+              as='textarea'
+              placeholder='Descriptions'
               onChange={(e) => setDescriptions(e.target.value)}
               value={descriptions}
               required
@@ -120,9 +135,20 @@ function RentalForm() {
             <Form.Label>Available date: </Form.Label>
             <Form.Control
               type='name'
-              placeholder='Feature'
+              placeholder='Available date'
               onChange={(e) => setAvailable_date(e.target.value)}
               value={available_date}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>Image </Form.Label>
+
+            <input
+              type='file'
+              name='image'
+              id='image'
+              onChange={(e) => setImage(e.target.files[0])}
+              accept='image/png, image/jpeg'
             />
           </Form.Group>
           <Button
@@ -131,7 +157,8 @@ function RentalForm() {
             onClick={(e) => {
               e.preventDefault();
               // userValidation(e.target.value);
-              postData(e.target.value);
+              // console.log("test66", image_url);
+              postData(image_url);
             }}>
             Submit
           </Button>

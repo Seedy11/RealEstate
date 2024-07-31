@@ -1,35 +1,51 @@
-import React from 'react'
-import { Col} from 'react-bootstrap'
-import CardContainer from './LargeContainer.element'
-import Image from '../../Images/pexels-alex-staudinger-1732414.jpg'
-import Button from '../Button/Button'
-import GridContainer from '../../StyledItems/GridContainer.elements'
+/** @format */
 
+import React from "react";
+import { Button, Card, Col, Container, Row } from "react-bootstrap";
 
-const LargeContainer = () => {
+import crib from "../../Images/pexels-alex-staudinger-1732414.jpg";
+import crib2 from "../../Images/pexels-asad-photo-maldives-1268871.jpg";
+import crib3 from "../../Images/pexels-expect-best-323780.jpg";
+import crib4 from "../../Images/pexels-mark-mccammon-2724749.jpg";
+import { CardContainer, ImageWrapper } from "./LargeContainer.element";
+import { Carousel } from "react-responsive-carousel";
+
+const LargeContainer = (props) => {
   return (
-    
-        <CardContainer >
-        <GridContainer>
-        <Col style={{alignItems: 'center'}}>
-        <img src={Image} className="card-img-top" alt="..." />
+    <CardContainer>
+      <Row onClick={props.onClick}>
+        <Col>
+          <ImageWrapper>
+            <Carousel>
+              <div>
+                <img src={crib} />
+              </div>
+              <div>
+                <img src={crib2} />
+              </div>
+              <div>
+                <img src={crib3} />
+              </div>
+              <div>
+                <img src={crib4} />
+              </div>
+            </Carousel>
+          </ImageWrapper>
         </Col>
-        <Col >
+        <Col style={{ margin: "1rem 2rem" }}>
+          <Card.Body>
+            <Card.Text>Property number: {props.id}</Card.Text>
+            <Card.Text>Address: {props.Address}</Card.Text>
+            <Card.Text>City: {props.City}</Card.Text>
+            <hr />
+            <Card.Text>Bedroom: {props.bedrooms}</Card.Text>
+            <Card.Text>Bathrooms: {props.bathrooms}</Card.Text>
+            <Card.Text>Available: {props.available_date}</Card.Text>
+          </Card.Body>
+        </Col>
+      </Row>
+    </CardContainer>
+  );
+};
 
-              <h1> Leeds canterbury Lane</h1>
-              <h3>Available 30/04/2023</h3>
-             <h3>Price £150000</h3>
-             <h3>bedroom 3</h3>
-             <h3>bathroom 2</h3>
-        <h3>Reception</h3>
-        <Button text={'View Detail'}></Button>
-              
-              </Col>
-   
-      </GridContainer>
-        </CardContainer>
-   
-  )
-}
-
-export default LargeContainer
+export default LargeContainer;
