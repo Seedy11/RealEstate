@@ -42,11 +42,6 @@ function Header() {
                 Letting
               </Link>
             </Nav.Link>
-            <Nav.Link href='#action/3.2'>
-              <Link to='rentalForm' style={{ textDecoration: "none" }}>
-                Rental Property form
-              </Link>
-            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Navbar>
