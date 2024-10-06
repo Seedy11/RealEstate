@@ -32,11 +32,11 @@ function Header() {
                 Login
               </Link>
             </Nav.Link>
-            <Nav.Link href='#action/3.2'>
+            {/* <Nav.Link href='#action/3.2'>
               <Link to='mortgage' style={{ textDecoration: "none" }}>
                 Mortgage
               </Link>
-            </Nav.Link>
+            </Nav.Link> */}
             <Nav.Link href='#action/3.1'>
               <Link to='letting' style={{ textDecoration: "none" }}>
                 Letting

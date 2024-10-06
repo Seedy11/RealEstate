@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import crib from "../../Images/pexels-alex-staudinger-1732414.jpg";
 import crib2 from "../../Images/pexels-asad-photo-maldives-1268871.jpg";
 import crib3 from "../../Images/pexels-expect-best-323780.jpg";
@@ -15,102 +15,107 @@ import GridContainer, {
 } from "../../StyledItems/GridContainer.elements";
 import { Button, Container } from "react-bootstrap";
 import FormContainer from "../Login/Login.element";
+import { useDispatch } from "react-redux";
+import { Property } from "../../redux/slice/letting";
+import { useParams } from "react-router-dom";
+import Map from "../../Components/Map/Map";
+import axios from "axios";
 
 const PropertyDetail = () => {
+  const params = useParams();
+  const [property, setProperties] = useState();
+  const PropertyID = params.id;
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    async function propertyListData() {
+      try {
+        const propertiesData = await axios.get(
+          `http://localhost:3001/rentalProperties/propertyList/${PropertyID}`
+        );
+        return setProperties(propertiesData.data[0]);
+        // console.log(propertiesData.data);
+      } catch (error) {
+        return error;
+      }
+    }
+    propertyListData();
+  }, []);
+  console.log("test", property);
   return (
     <>
-      <ImageWrapper>
-        <Carousel>
-          <div>
-            <img src={crib} />
-          </div>
-          <div>
-            <img src={crib2} />
-          </div>
-          <div>
-            <img src={crib3} />
-          </div>
-          <div>
-            <img src={crib4} />
-          </div>
-        </Carousel>
-      </ImageWrapper>
-      <TwoColumn>
+      {!property ? (
+        <h2>no property</h2>
+      ) : (
         <Container>
-          <h2>Features</h2>
-
-          <ul>
-            <GridContainer>
+          {/* <Map /> */}
+          <ImageWrapper>
+            <Carousel>
               <div>
-                <li>Bedrooms: 4</li>
-                <li>bathrooms: 2</li>
-                <li>price: $650.00</li>
+                <img src={crib} />
               </div>
               <div>
-                <li>available: now</li>
-                <li>City: leeds</li>
-                <li>Post code: lS4 5LP</li>
+                <img src={crib2} />
               </div>
-            </GridContainer>
-          </ul>
+              <div>
+                <img src={crib3} />
+              </div>
+              <div>
+                <img src={crib4} />
+              </div>
+            </Carousel>
+          </ImageWrapper>
+          <TwoColumn>
+            <Container>
+              <h2>Features</h2>
 
-          <hr />
-          <h2>Lettings details</h2>
-          <ul>
-            <li>
-              Bedrooms: 4 spacious bedrooms, including a luxurious master suite
-              with a walk-in closet and en-suite bathroom.
-            </li>
-            <li>
-              Living Space: Approximately 2,500 sq. ft. of living space,
-              thoughtfully designed for both relaxation and entertaining.
-            </li>
-            <li>
-              Kitchen: Gourmet kitchen with stainless steel appliances, granite
-              countertops, a large island, and ample cabinet space.
-            </li>
-            <li>
-              Living Areas: Open-concept living and dining areas with hardwood
-              floors, large windows, and a cozy fireplace.
-            </li>
-          </ul>
+              <ul>
+                <GridContainer>
+                  <div>
+                    <li>Bedrooms: {property.Address}</li>
+                    <li>bathrooms: {property.Bathrooms}</li>
+                    <li>price: $650.00</li>
+                  </div>
+                  <div>
+                    <li>available: {property.Available_date}</li>
+                    <li>City: {property.City}</li>
+                    <li>Post code: {property.PostCode}</li>
+                  </div>
+                </GridContainer>
+              </ul>
 
-          <hr />
+              <hr />
+              <h2>Lettings details</h2>
+              <ul>
+                <li>
+                  Bedrooms: 4 spacious bedrooms, including a luxurious master
+                  suite with a walk-in closet and en-suite bathroom.
+                </li>
+              </ul>
 
-          <h2>property description</h2>
-          <p>
-            and ample cabinet space. Living Areas: Open-concept living and
-            dining areas with hardwood floors, large windows, and a cozy
-            fireplace. Outdoor Space: Beautifully landscaped front and
-            backyards, featuring a patio area perfect for outdoor dining and
-            entertaining. Garage: Attached 2-car garage with additional storage
-            space. Additional Features: Central heating and air conditioning,
-            energy-efficient windows, a security system, and a laundry room.
-            Location: Situated in a highly desirable neighborhood, this home is
-            just minutes away from top-rated schools, parks, shopping centers,
-            and dining options. The quiet streets and friendly community
-            atmosphere make it an ideal place to raise a family. Highlights:
-            Master Suite: The master bedroom is a true retreat, complete with a
-            spa-like bathroom featuring a soaking tub, double vanity, and a
-            separate shower. Outdoor Living: Enjoy the outdoor space year-round
-            with a covered patio, lush lawn, and a garden area perfect for green
-            thumbs. Modern Conveniences: The home is equipped with smart home
-            technology, allowing you to control the lighting, thermostat, and
-            security system from your smartphone.
-          </p>
-        </Container>
+              <hr />
 
-        <Container>
-          <FormContainer>
-            <h2>contact us</h2>
-            <Button>Call agent</Button>
-            {/* <br />
+              <h2>property description</h2>
+              <p>Description: {property.Descriptions}</p>
+
+              <hr />
+
+              <Map />
+            </Container>
+
+            <Container>
+              <FormContainer>
+                <h2>contact us</h2>
+                <Button>Call agent</Button>
+                {/* <br />
             <br /> */}
-            <Button>Request details</Button>
-          </FormContainer>
+                <Button>Request details</Button>
+              </FormContainer>
+            </Container>
+          </TwoColumn>
+          <hr />
         </Container>
-      </TwoColumn>
-      <hr />
+      )}
     </>
   );
 };
