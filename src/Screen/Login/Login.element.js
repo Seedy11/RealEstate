@@ -8,7 +8,7 @@ const FormContainer = styled.h2`
   font-size: 1.5rem;
   //   text-align: center;
   border-radius: 1rem;
-  margin: 5rem 0rem;
+  margin: 3rem 0rem;
   border: 1px solid #dee2e6;
   @media only screen and (max-width: 600px) {
     padding: 2rem 4rem;

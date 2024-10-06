@@ -10,7 +10,6 @@ import Letting from "./Screen/Letting/Letting";
 import Login from "./Screen/Login/Login";
 import Register from "./Screen/Register/Register";
 import Footer from "./Components/Footer/Footer";
-import Mortgage from "./Screen/Mortgage/Mortgage";
 import RentalForm from "./Screen/RentalForm/RentalForm";
 import PropertyDetail from "./Screen/PropertyDetail/PropertyDetail";
 
@@ -24,10 +23,10 @@ function App() {
           <Route path='/' element={<HomeScreen />} />
           <Route path='login' element={<Login />} />
           <Route path='letting' element={<Letting />} />
-          <Route path='mortgage' element={<Mortgage />} />
+          {/* <Route path='mortgage' element={<Mortgage />} /> */}
           <Route path='rentalForm' element={<RentalForm />} />
           <Route path='login/register' element={<Register />} />
-          <Route path='PropertyDetail' element={<PropertyDetail />} />
+          <Route path='PropertyDetail/:id' element={<PropertyDetail />} />
         </Routes>
         <Footer />
       </Container>
