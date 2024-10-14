@@ -8,32 +8,52 @@ const path = require("path");
 
 router.use(express.json());
 
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, "uploadImage");
-  },
+// const storage = multer.diskStorage({
+//   destination: (req, file, cb) => {
+//     cb(null, "uploadImage");
+//   },
 
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + path.extname(file.originalname));
-  },
-});
+//   filename: (req, file, cb) => {
+//     console.log(file);
+//     cb(null, Date.now() + path.extname(file.originalname));
+//   },
+// });
 
-const upload = multer({ storage: storage });
+// const upload = multer({ destination: "/imageUpload" });
 
-router.post("/imageUpload", upload.single("image_url"), (req, res) => {
-  const image_url = req.file.image_url;
-  console.log("uh3", req.file.image_url);
-  const DBTable = {
+// router.post("/imageUpload", upload.single("image_url"), (req, res) => {
+//   const image_url = req.file.image_url;
+//   console.log("uh3", req.file.image_url);
+//   const ImageTable = {
+//     image_url,
+//   };
+
+//   db.query(`INSERT INTO images SET ?`, ImageTable, (err, result) => {
+//     if (err) {
+//       console.log("error", err);
+//     } else {
+//       res.send("Values Inserted");
+//     }
+//   });
+// });
+const upload = multer({ dest: "uploadImage" });
+
+router.post("/imageUpload", upload.single("image"), (req, res) => {
+  const image_url = req.file.filename;
+  const ImageTable = {
     image_url,
   };
-
-  db.query(`INSERT INTO images SET ?`, DBTable, (err, result) => {
+  // Save this data to a database probably
+  db.query(`INSERT INTO images SET ?`, ImageTable, (err, result) => {
     if (err) {
       console.log("error", err);
     } else {
       res.send("Values Inserted");
     }
   });
+
+  console.log("image", image_url);
+  // return res.send({ description, imageName });
 });
 
 router.post("/", (req, res) => {
