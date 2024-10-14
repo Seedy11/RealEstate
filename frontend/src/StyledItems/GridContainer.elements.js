@@ -18,12 +18,16 @@ export const TwoColumn = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 10px;
-  margin-bottom: 2rem;
+  margin: 8rem 0rem;
   .grid-item {
     padding: 10px;
   }
   @media only screen and (max-device-width: 480px) {
     grid-template-columns: none;
   }
+`;
+
+export const Column = styled.div`
+  align-items: center;
 `;
 export default GridContainer;

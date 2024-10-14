@@ -7,8 +7,11 @@ import PropertyFeature from "../../Form/PropetyFeature/PropertyFeature";
 import { Button } from "react-bootstrap";
 import GridContainer from "../../StyledItems/GridContainer.elements";
 import axios from "axios";
+import ImageUploader from "../../Form/ImageUploader/ImageUploader";
+
 function RentalForm() {
   const [page, setPage] = useState(0);
+  const [file, setFile] = useState("");
   const [dataItems, setDataItems] = useState({
     First_name: "",
     Last_name: "",
@@ -24,6 +27,23 @@ function RentalForm() {
     Descriptions: "",
     Price: NaN,
   });
+
+  const sendImage = async (e, file) => {
+    // e.preventDefault();
+
+    const formData = new FormData();
+    formData.append("image", file);
+
+    const result = await axios.post(
+      "http://localhost:3001/rentalProperties/imageUpload",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    );
+    console.log(result.data);
+  };
+
   const postData = (e) => {
     axios.post("http://localhost:3001/rentalProperties", dataItems).then(() => {
       console.log("success");
@@ -40,6 +60,8 @@ function RentalForm() {
       return (
         <PropertyFeature dataItems={dataItems} setDataItems={setDataItems} />
       );
+    } else if (page === 3) {
+      return <ImageUploader setFile={file} submit={sendImage} />;
     }
   };
 
@@ -57,15 +79,16 @@ function RentalForm() {
         </Button>
         <Button
           onClick={() => {
-            if (page === 2) {
-              // alert("form submitted");
-              postData();
+            if (page === 3) {
+              alert("form submitted");
+              // postData();
+              sendImage();
               console.log("data", dataItems);
             } else {
               setPage((page) => page + 1);
             }
           }}>
-          {page === 2 ? "Submit" : "Next"}
+          {page === 3 ? "Submit" : "Next"}
         </Button>
       </GridContainer>
     </div>
