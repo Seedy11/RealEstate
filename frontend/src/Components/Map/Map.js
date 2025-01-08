@@ -11,11 +11,11 @@ function Map() {
       <GoogleMapReact
         style={{ height: "20px", width: "50%" }}
         bootstrapURLKeys={"real-estate-431418"}
-        defaultCenter={{ lat: 59.955413, lng: 30.337844 }}
-        defaultZoom={4}
+        defaultCenter={{ lat: 53.42416763305664, lng: -1.45220148563385 }}
+        defaultZoom={15}
         yesIWantToUseGoogleMapApiInternals
         onGoogleApiLoaded={({ map, maps }) => handleApiLoaded(map, maps)}>
-        <div lat={59.955413} lng={30.337844} text='My Marker' />
+        <div lat={53.42416763305664} lng={-1.45220148563385} text='My Marker' />
         {/* iuyhoiuhy */}
       </GoogleMapReact>
     </Card>

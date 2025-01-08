@@ -15,33 +15,41 @@ import GridContainer, {
 } from "../../StyledItems/GridContainer.elements";
 import { Button, Container } from "react-bootstrap";
 import FormContainer from "../Login/Login.element";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Property } from "../../redux/slice/letting";
 import { useParams } from "react-router-dom";
 import Map from "../../Components/Map/Map";
 import axios from "axios";
+import { PropertyInfo } from "../../redux/slice/propetydetail";
 
 const PropertyDetail = () => {
   const params = useParams();
-  const [property, setProperties] = useState();
-  const PropertyID = params.id;
+  // const [property, setProperties] = useState();
+  const property_id = params.id;
   const dispatch = useDispatch();
 
-  React.useEffect(() => {
-    async function propertyListData() {
-      try {
-        const propertiesData = await axios.get(
-          `http://localhost:3001/rentalProperties/propertyList/${PropertyID}`
-        );
-        return setProperties(propertiesData.data[0]);
-        // console.log(propertiesData.data);
-      } catch (error) {
-        return error;
-      }
-    }
-    propertyListData();
-  }, []);
-  console.log("test", property);
+  // React.useEffect(() => {
+  //   async function propertyListData() {
+  //     try {
+  //       const propertiesData = await axios.get(
+  //         `http://localhost:3001/rentalProperties/propertyList/${PropertyID}`
+  //       );
+  //       return setProperties(propertiesData.data[0]);
+  //       // console.log(propertiesData.data);
+  //     } catch (error) {
+  //       return error;
+  //     }
+  //   }
+  //   propertyListData();
+  // }, []);
+  useEffect(() => {
+    dispatch(PropertyInfo(property_id));
+  }, [PropertyInfo]);
+  const property = useSelector(
+    (state) => state.PropertyInfo.PropertyDetailItems[0]
+  );
+  console.log("testdetail", property);
+
   return (
     <>
       {!property ? (
@@ -72,7 +80,7 @@ const PropertyDetail = () => {
               <ul>
                 <GridContainer>
                   <div>
-                    <li>Bedrooms: {property.Address}</li>
+                    <li>Bedrooms: {property.Bathrooms}</li>
                     <li>bathrooms: {property.Bathrooms}</li>
                     <li>price: $650.00</li>
                   </div>

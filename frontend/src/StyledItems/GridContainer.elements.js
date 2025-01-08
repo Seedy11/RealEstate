@@ -18,7 +18,21 @@ export const TwoColumn = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 10px;
+  margin: 10rem 0rem;
+  font-size: 1.3rem;
+  .grid-item {
+    padding: 10px;
+  }
+  @media only screen and (max-device-width: 480px) {
+    grid-template-columns: none;
+  }
+`;
+export const ThreeColumn = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto;
+  grid-gap: 10px;
   margin: 8rem 0rem;
+  font-size: 1.3rem;
   .grid-item {
     padding: 10px;
   }

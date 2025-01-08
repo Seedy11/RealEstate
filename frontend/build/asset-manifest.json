@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.0954c3c6.css",
+    "main.js": "/static/js/main.c92863ea.js",
+    "static/js/453.2db0b49d.chunk.js": "/static/js/453.2db0b49d.chunk.js",
+    "static/media/logo.png": "/static/media/logo.04a613350da2a5982dbc.png",
+    "static/media/pexels-mark-mccammon-2724749.jpg": "/static/media/pexels-mark-mccammon-2724749.5eda5eff3c605f622f8d.jpg",
+    "static/media/pexels-alex-staudinger-1732414.jpg": "/static/media/pexels-alex-staudinger-1732414.b653d3234bbb06c26a1f.jpg",
+    "static/media/pexels-expect-best-323780.jpg": "/static/media/pexels-expect-best-323780.ac6dcaa41eedb9c91d55.jpg",
+    "static/media/pexels-asad-photo-maldives-1268871.jpg": "/static/media/pexels-asad-photo-maldives-1268871.fadd7d5d9228fd41d8b8.jpg",
+    "index.html": "/index.html",
+    "main.0954c3c6.css.map": "/static/css/main.0954c3c6.css.map",
+    "main.c92863ea.js.map": "/static/js/main.c92863ea.js.map",
+    "453.2db0b49d.chunk.js.map": "/static/js/453.2db0b49d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.0954c3c6.css",
+    "static/js/main.c92863ea.js"
+  ]
+}

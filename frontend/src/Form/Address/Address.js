@@ -3,8 +3,25 @@
 import React from "react";
 import FormContainer from "../../Screen/Login/Login.element";
 import { Form } from "react-bootstrap";
+import { useState } from "react";
+import axios from "axios";
 
 function Address({ dataItems, setDataItems }) {
+  const [setAddressData, AddressData] = useState("");
+  React.useEffect(() => {
+    async function AddressData() {
+      try {
+        const propertiesData = await axios.get(
+          `http://localhost:3001/rentalProperties/propertyList/${AddressData}`
+        );
+        return setAddressData(propertiesData.data[0]);
+        // console.log(propertiesData.data);
+      } catch (error) {
+        return error;
+      }
+    }
+    AddressData();
+  }, []);
   return (
     <FormContainer>
       <Form>

@@ -1,9 +1,8 @@
 /** @format */
 
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import NavHeader from "./Header.element";
+import { Nav, Navbar, NavDropdown } from "react-bootstrap";
 import Logo from "../../Images/logo.png";
 import HeaderContainer from "./Header.element";
 
@@ -42,6 +41,27 @@ function Header() {
                 Letting
               </Link>
             </Nav.Link>
+            <NavDropdown title='Admin' id='nav-dropdown'>
+              <NavDropdown.Item eventKey='4.1'>
+                {" "}
+                <Link to='rentalForm' style={{ textDecoration: "none" }}>
+                  Add Property
+                </Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item eventKey='4.1'>
+                {" "}
+                <Link to='register' style={{ textDecoration: "none" }}>
+                  Add user admin
+                </Link>
+              </NavDropdown.Item>
+
+              {/* <NavDropdown.Item eventKey='4.2'>Another action</NavDropdown.Item>
+              <NavDropdown.Item eventKey='4.3'>
+                Something else here
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item eventKey='4.4'>Separated link</NavDropdown.Item> */}
+            </NavDropdown>
           </Nav>
         </Navbar.Collapse>
       </Navbar>

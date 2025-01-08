@@ -4,13 +4,13 @@ import styled from "styled-components";
 
 export const CardContainer = styled.h2`
   background-color: white;
-  border: 2px solid #dee2e6;
+  border: 1px solid #dee2e6;
   border-radius: 20px;
-  height: 370px;
-  padding: 5px 10px;
+  max-height: 4500px;
+  // padding: 5px 10px;
   margin: 2rem 0rem;
-  font-size: 25px;
-  font-weight: 150;
+  font-size: 20px;
+  // font-weight: 150;
   font-style: italic;
 
   img {
@@ -18,13 +18,13 @@ export const CardContainer = styled.h2`
   }
 
   @media only screen and (max-width: 600px) {
-    display: flex;
-    align-items: center;
-
+    // display: flex;
+    // align-items: center;
+    font-size: 13px;
     img {
-      height: 300px;
-      width: 360px;
-      border-radius: 20px;
+      max-height: 1400px;
+      width: 60px;
+      // border-radius: 20px;
     }
   }
 `;
@@ -35,7 +35,18 @@ export const ImageWrapper = styled.h2`
     max-height: 250px;
     width: 100%;
     object-fit: cover;
-    border-radius: 20px;
+    // border-radius: 20px;
     align-item: center;
+  }
+`;
+export const Position = styled.h2`
+  display: flex;
+  gap: 2rem;
+  font-size: 20px;
+  font-style: italic;
+  @media only screen and (max-width: 600px) {
+    // display: flex;
+    // align-items: center;
+    font-size: 13px;
   }
 `;

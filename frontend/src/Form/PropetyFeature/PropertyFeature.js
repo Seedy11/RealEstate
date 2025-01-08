@@ -35,6 +35,18 @@ function PropertyFeature({ dataItems, setDataItems }) {
           />
         </Form.Group>{" "}
         <Form.Group className='mb-3' controlId='formBasicEmail'>
+          <Form.Label>available</Form.Label>
+          <Form.Control
+            type='text'
+            name='email'
+            value={dataItems.Available_date}
+            onChange={(e) => {
+              setDataItems({ ...dataItems, Available_date: e.target.value });
+            }}
+            required
+          />
+        </Form.Group>{" "}
+        <Form.Group className='mb-3' controlId='formBasicEmail'>
           <Form.Label>Price:</Form.Label>
           <Form.Control
             type='number'
