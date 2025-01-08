@@ -55,7 +55,7 @@ function ImageUploader({ submit }) {
           type='file'
           accept='image/*'></input>
 
-        {/* <button>Submit</button> */}
+        <button>Submit</button>
       </Form>
     </div>
   );

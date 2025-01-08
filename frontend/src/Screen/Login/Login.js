@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "./Login.element";
 import axios from "axios";
 
@@ -10,6 +10,8 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loginStatus, setLoginStatus] = useState("");
+
+  const navigate = useNavigate();
 
   async function getUserData() {
     // try {
@@ -56,7 +58,7 @@ const Login = () => {
           />
         </Form.Group>
         <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-          <Link to='register'>Register</Link>
+          <Link to='../register'>Register</Link>
           <h1>{loginStatus}</h1>
         </Form.Group>
 

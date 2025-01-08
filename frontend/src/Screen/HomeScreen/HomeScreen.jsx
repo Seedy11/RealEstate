@@ -1,21 +1,26 @@
 /** @format */
 
-import React, { useEffect } from "react";
+import React from "react";
 import crib from "../../Images/pexels-alex-staudinger-1732414.jpg";
 import crib2 from "../../Images/pexels-asad-photo-maldives-1268871.jpg";
 import crib3 from "../../Images/pexels-expect-best-323780.jpg";
 import crib4 from "../../Images/pexels-mark-mccammon-2724749.jpg";
-import crib5 from "../../Images/mortgage.jpg";
+import { FaHouseChimney } from "react-icons/fa6";
 import ImageWrapper from "./HomeScreen.element";
 import "react-alice-carousel/lib/alice-carousel.css";
+import { FaPhoneAlt } from "react-icons/fa";
+import { CiMail } from "react-icons/ci";
 import Button from "../../Components/Button/Button";
 import GridContainer, {
+  ThreeColumn,
   TwoColumn,
 } from "../../StyledItems/GridContainer.elements";
 import { Carousel } from "react-responsive-carousel";
-import { Col, Container, Form, Image, InputGroup, Row } from "react-bootstrap";
+import { Col, Form, InputGroup, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
-const HomeScreen = ({ text }) => {
+const HomeScreen = () => {
+  const navigate = useNavigate();
   return (
     <>
       <ImageWrapper>
@@ -34,7 +39,6 @@ const HomeScreen = ({ text }) => {
           </div>
         </Carousel>
       </ImageWrapper>
-      <br></br>
 
       {/* <Button text={"Renting"}></Button>
       <Button text={"Letting"}></Button> */}
@@ -44,7 +48,7 @@ const HomeScreen = ({ text }) => {
             Explore the properties
           </h2>
 
-          <Col sm={8}>
+          <Col style={{ textAlign: "center" }}>
             Our team of highly skilled professionals comes from diverse
             backgrounds, bringing expertise in [List Key Areas of Expertise,
             e.g., software development, healthcare, finance, etc.]. This
@@ -56,71 +60,43 @@ const HomeScreen = ({ text }) => {
             believe in building strong partnerships and empowering our clients
             to achieve their goals.
           </Col>
-          <Col sm={2}>
-            <Image
-              style={{ width: "300px", height: "300px" }}
-              src={crib5}
-              roundedCircle
-            />
-          </Col>
         </Row>
       </TwoColumn>
+      <ThreeColumn>
+        <Row>
+          <h2 style={{ textAlign: "center", marginBottom: "2rem" }}>
+            Explore the properties
+          </h2>
+          <Col style={{ textAlign: "center" }}>
+            <FaPhoneAlt style={{ fontSize: "5rem" }} />
+            <Col>
+              Our team of highly skilled professionals comes from diverse
+            </Col>
+          </Col>
+          <Col style={{ textAlign: "center" }}>
+            <CiMail style={{ fontSize: "5rem" }} />
+            <Col>
+              Our team of highly skilled professionals comes from diverse
+            </Col>
+          </Col>
+          <Col style={{ textAlign: "center" }}>
+            <FaHouseChimney style={{ fontSize: "5rem" }} />
+            <Col>
+              Our team of highly skilled professionals comes from diverse
+            </Col>
+          </Col>
+        </Row>
+      </ThreeColumn>
 
       <Row style={{ textAlign: "center", marginBottom: "2rem" }}>
         <h2>Checkout out latest property </h2>
 
-        <Button text={"view all..."}></Button>
+        <Button
+          onClick={() => navigate("/letting")}
+          text={"view all..."}></Button>
       </Row>
 
-      <GridContainer style={{ margin: "5rem 0rem" }}>
-        <div className='card grid-item'>
-          <img src={crib} className='card-img-top' alt='...' />
-          <div className='card-body'>
-            <h5 className='card-title'>Letting</h5>
-            <p className='card-text'>
-              check our most recent property to let with photos
-            </p>
-            <a href='#' className='btn btn-primary'>
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className='card grid-item'>
-          <img src={crib2} className='card-img-top' alt='...' />
-          <div className='card-body'>
-            <h5 className='card-title'>Sales </h5>
-            <p className='card-text'>
-              check out for property for sales for investor and mortgages
-            </p>
-            <a href='#' className='btn btn-primary'>
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className='card grid-item'>
-          <img src={crib3} className='card-img-top' alt='...' />
-          <div className='card-body'>
-            <h5 className='card-title'>Free validation</h5>
-            <p className='card-text'>get a free and accurate valuation.</p>
-            <a href='#' className='btn btn-primary'>
-              Go somewhere
-            </a>
-          </div>
-        </div>
-        <div className='card grid-item'>
-          <img src={crib4} className='card-img-top' alt='...' />
-          <div className='card-body'>
-            <h5 className='card-title'>Mortgage</h5>
-            <p className='card-text'>
-              get a mortgage with and calculate the mortgage
-            </p>
-            <a href='#' className='btn btn-primary'>
-              Go somewhere
-            </a>
-          </div>
-        </div>
-      </GridContainer>
-      <p className='card-text'>
+      <p className='card-text' style={{ fontSize: "1.2rem" }}>
         sign up to get latest information about property
       </p>
       <InputGroup className='mb-3'>

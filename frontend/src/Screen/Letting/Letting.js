@@ -2,11 +2,9 @@
 
 import React, { useEffect, useState } from "react";
 import LargeContainer from "../../Components/LargeContainer/LargeContainer";
-import LettingContainer from "./Letting.element";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { Button, Container } from "react-bootstrap";
-import GridContainer from "../../StyledItems/GridContainer.elements";
+import { Container } from "react-bootstrap";
 import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import { useDispatch, useSelector } from "react-redux";
 import { Property } from "../../redux/slice/letting";
@@ -45,11 +43,13 @@ function Letting() {
   const property = useSelector((state) => state.lettings.PropertyItems);
   console.log("test", property);
 
-  function deletePropertyList(PropertyID) {
-    axios.delete(`http://localhost:3001/rentalProperties/delete/${PropertyID}`);
+  function deletePropertyList(property_id) {
+    axios.delete(
+      `http://localhost:3001/rentalProperties/delete/${property_id}`
+    );
     setProperties(
       properties.filter((deleteProperty) => {
-        return deleteProperty.PropertyID !== PropertyID;
+        return deleteProperty.property_id !== property_id;
       })
     );
   }
@@ -59,21 +59,15 @@ function Letting() {
       {/* <LettingContainer> */}
       <h1>Letting</h1>
       {/* <GridContainer> */}
-      <DropdownMenu DropdownName='Postcode' option={bedroom} />
-      <DropdownMenu DropdownName='Max beds' option={bedroom} />
-      <DropdownMenu DropdownName='Max beds' option={bedroom} />
+      {/* <Container>
+        <DropdownMenu DropdownName='Postcode' option={bedroom} />
+        <DropdownMenu DropdownName='Max beds' option={bedroom} />
+        <DropdownMenu DropdownName='Max beds' option={bedroom} />
 
-      <DropdownMenu DropdownName='house Type' option={bedroom} />
-      <DropdownMenu DropdownName='Min price' option={bedroom} />
-
-      <Button
-        // style={{ width: "100%" }}
-        onClick={() => navigate("/rentalForm")}>
-        {" "}
-        Add Property{" "}
-      </Button>
-
-      {!property ? (
+        <DropdownMenu DropdownName='house Type' option={bedroom} />
+        <DropdownMenu DropdownName='Min price' option={bedroom} />
+      </Container> */}
+      {property.length === 0 ? (
         <Container>
           <p>letting Not available </p>
         </Container>
@@ -84,11 +78,15 @@ function Letting() {
               id={property.PropertyID}
               key={property.PropertyID}
               Address={property.Address}
-              bedrooms={property.bedrooms}
-              bathrooms={property.bathrooms}
-              available_date={property.available_date}
+              Bedrooms={property.Bedrooms}
+              Bathrooms={property.Bathrooms}
+              Available_date={property.Available_date}
+              Price={property.Price}
+              Phone_number={property.Phone_number}
               City={property.City}
-              onClick={() => navigate(`/PropertyDetail/${property.PropertyID}`)}
+              onClick={() =>
+                navigate(`/PropertyDetail/${property.property_id}`)
+              }
               delete={() => {
                 deletePropertyList(property.PropertyID);
               }}
@@ -96,6 +94,14 @@ function Letting() {
           </>
         ))
       )}
+      <Container>
+        <DropdownMenu DropdownName='Postcode' option={bedroom} />
+        <DropdownMenu DropdownName='Max beds' option={bedroom} />
+        <DropdownMenu DropdownName='Max beds' option={bedroom} />
+
+        <DropdownMenu DropdownName='house Type' option={bedroom} />
+        <DropdownMenu DropdownName='Min price' option={bedroom} />
+      </Container>
     </Container>
   );
 }

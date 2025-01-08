@@ -20,6 +20,7 @@ function RentalForm() {
     Address: "",
     Postcode: "",
     City: "",
+    Available_date: "",
     Country: "",
     State: "",
     Bathrooms: NaN,
@@ -81,8 +82,8 @@ function RentalForm() {
           onClick={() => {
             if (page === 3) {
               alert("form submitted");
-              // postData();
-              sendImage();
+              postData();
+              // sendImage();
               console.log("data", dataItems);
             } else {
               setPage((page) => page + 1);
