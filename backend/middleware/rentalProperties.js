@@ -52,8 +52,8 @@ router.post("/imageUpload", upload.single("image"), (req, res) => {
     }
   });
 
-  console.log("image", image_url);
-  // return res.send({ description, imageName });
+  // console.log("image", image_url);
+  return res.send({ image_url });
 });
 
 router.post("/", (req, res) => {
@@ -116,11 +116,11 @@ router.get("/propertyList", (req, res) => {
 });
 
 router.get("/propertyList/:id", (req, res) => {
-  const PropertyID = req.params.id;
+  const property_id = req.params.id;
   db.query(
-    `SELECT * FROM  rental_properties WHERE PropertyID = ?
+    `SELECT * FROM  rental_properties WHERE property_id = ?
     `,
-    PropertyID,
+    property_id,
     (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -159,7 +159,7 @@ router.put("/update", (req, res) => {
   };
 
   db.query(
-    `UPDATE rental_properties SET ? WHERE PropertyID`,
+    `UPDATE rental_properties SET ? WHERE property_id`,
     DBTable,
     (err, result) => {
       if (err) {
@@ -174,7 +174,7 @@ router.put("/update", (req, res) => {
 router.delete(`/delete/:id`, (req, res) => {
   const id = req.params.id;
   db.query(
-    `DELETE FROM rental_properties WHERE PropertyID = `,
+    `DELETE FROM rental_properties WHERE property_id = `,
     id,
     (err, result) => {
       if (err) {
