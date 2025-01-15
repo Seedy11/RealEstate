@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import PersonalDetail from "../../Form/PersonalDetail/PersonalDetail";
 import Address from "../../Form/Address/Address";
 import PropertyFeature from "../../Form/PropetyFeature/PropertyFeature";
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import GridContainer from "../../StyledItems/GridContainer.elements";
 import axios from "axios";
 import ImageUploader from "../../Form/ImageUploader/ImageUploader";
@@ -46,9 +46,14 @@ function RentalForm() {
   };
 
   const postData = (e) => {
-    axios.post("http://localhost:3001/rentalProperties", dataItems).then(() => {
-      console.log("success");
-    });
+    axios
+      .post(
+        "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties",
+        dataItems
+      )
+      .then(() => {
+        console.log("success");
+      });
   };
   const pageRender = () => {
     if (page === 0) {
@@ -67,7 +72,7 @@ function RentalForm() {
   };
 
   return (
-    <div>
+    <Container>
       <h1>form</h1>
       <div>{pageRender()}</div>
       <GridContainer>
@@ -92,7 +97,7 @@ function RentalForm() {
           {page === 3 ? "Submit" : "Next"}
         </Button>
       </GridContainer>
-    </div>
+    </Container>
   );
 }
 

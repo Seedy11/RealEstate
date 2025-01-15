@@ -16,7 +16,7 @@ import axios from "axios";
 // require("dotenv").config();
 
 function App() {
-  // console.log("hgbvhb", process.env.REACT_APP_USER_SQL);
+  console.log("hgbvhb", process.env.REACT_APP_USER_SQL);
   // React.useEffect(() => {
   //   async function AddressData() {
   //     try {
@@ -34,20 +34,18 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Container>
-        <Header />
-        {/* <HomeScreen/> */}
-        <Routes>
-          <Route path='/' element={<HomeScreen />} />
-          <Route path='login' element={<Login />} />
-          <Route path='letting' element={<Letting />} />
-          {/* <Route path='mortgage' element={<Mortgage />} /> */}
-          <Route path='rentalForm' element={<RentalForm />} />
-          <Route path='register' element={<Register />} />
-          <Route path='PropertyDetail/:id' element={<PropertyDetail />} />
-        </Routes>
-        <Footer />
-      </Container>
+      <Header />
+      {/* <HomeScreen/> */}
+      <Routes>
+        <Route path='/' element={<HomeScreen />} />
+        <Route path='login' element={<Login />} />
+        <Route path='letting' element={<Letting />} />
+        {/* <Route path='mortgage' element={<Mortgage />} /> */}
+        <Route path='rentalForm' element={<RentalForm />} />
+        <Route path='register' element={<Register />} />
+        <Route path='PropertyDetail/:id' element={<PropertyDetail />} />
+      </Routes>
+      <Footer />
     </BrowserRouter>
   );
 }

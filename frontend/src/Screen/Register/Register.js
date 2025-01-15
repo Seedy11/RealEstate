@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import FormContainer from "../Login/Login.element";
 import { useNavigate } from "react-router-dom";
@@ -56,38 +56,39 @@ const Register = () => {
       });
   };
   return (
-    <FormContainer>
-      <Form>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
-          <Form.Label>First Name</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='First Name'
-            onChange={(e) => setFirstName(e.target.value)}
-            value={first_Name}
-            required
-          />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
-          <Form.Label>Last Name</Form.Label>
-          <Form.Control
-            type='name'
-            placeholder='Last Name'
-            onChange={(e) => setLastName(e.target.value)}
-            value={Last_Name}
-          />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
-          <Form.Label>Email </Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='email address'
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
-          />
-        </Form.Group>
+    <Container>
+      <FormContainer>
+        <Form>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>First Name</Form.Label>
+            <Form.Control
+              type='name'
+              placeholder='First Name'
+              onChange={(e) => setFirstName(e.target.value)}
+              value={first_Name}
+              required
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>Last Name</Form.Label>
+            <Form.Control
+              type='name'
+              placeholder='Last Name'
+              onChange={(e) => setLastName(e.target.value)}
+              value={Last_Name}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>Email </Form.Label>
+            <Form.Control
+              type='email'
+              placeholder='email address'
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
+            />
+          </Form.Group>
 
-        {/* <Form.Group className='mb-3' controlId='formBasicPassword'>
+          {/* <Form.Group className='mb-3' controlId='formBasicPassword'>
           <Form.Label>Re-type Password</Form.Label>
           <Form.Control
             type='password'
@@ -96,33 +97,34 @@ const Register = () => {
             value={rePassword}
           />
         </Form.Group> */}
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Password'
-            onChange={(e) => setPassword(e.target.value)}
-            value={tenant_password}
-          />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-          <Link to='../login'>Login here</Link>
-        </Form.Group>
-        {errorMessage ? (
-          <p style={{ color: "red" }}>field can not be empty</p>
-        ) : null}
-        <Button
-          variant='primary'
-          type='submit'
-          onClick={(e) => {
-            e.preventDefault();
-            // userValidation(e.target.value);
-            postData(e.target.value);
-          }}>
-          Submit
-        </Button>
-      </Form>
-    </FormContainer>
+          <Form.Group className='mb-3' controlId='formBasicPassword'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Password'
+              onChange={(e) => setPassword(e.target.value)}
+              value={tenant_password}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+            <Link to='../login'>Login here</Link>
+          </Form.Group>
+          {errorMessage ? (
+            <p style={{ color: "red" }}>field can not be empty</p>
+          ) : null}
+          <Button
+            variant='primary'
+            type='submit'
+            onClick={(e) => {
+              e.preventDefault();
+              // userValidation(e.target.value);
+              postData(e.target.value);
+            }}>
+            Submit
+          </Button>
+        </Form>
+      </FormContainer>
+    </Container>
   );
 };
 

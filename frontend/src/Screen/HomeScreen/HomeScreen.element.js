@@ -6,7 +6,8 @@ const ImageWrapper = styled.h2`
   color: white;
 
   img {
-    max-height: 500px;
+    max-height: 700px;
+    // margin: 10px;
     width: 100%;
     object-fit: cover;
     border-radius: 20px;
