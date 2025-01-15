@@ -127,6 +127,19 @@ router.get("/propertyList/:id", (req, res) => {
     }
   );
 });
+router.get("/citySearch", (req, res) => {
+  const City = req.query.City;
+  const Bedrooms = req.query.Bedrooms;
+  db.query(
+    `SELECT * FROM  rental_properties WHERE City = ? OR Bedrooms = ?
+    `,
+    [City, Bedrooms],
+    (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
+});
 
 router.put("/update", (req, res) => {
   const Address = req.body.Address;

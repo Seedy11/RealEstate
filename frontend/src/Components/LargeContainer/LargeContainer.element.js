@@ -6,9 +6,9 @@ export const CardContainer = styled.h2`
   background-color: white;
   border: 1px solid #dee2e6;
   border-radius: 20px;
-  max-height: 4500px;
+  max-height: 800px;
   // padding: 5px 10px;
-  margin: 2rem 0rem;
+  margin: 1rem 0rem;
   font-size: 20px;
   // font-weight: 150;
   font-style: italic;
@@ -32,7 +32,7 @@ export const ImageWrapper = styled.h2`
   color: white;
 
   img {
-    max-height: 250px;
+    max-height: 300px;
     width: 100%;
     object-fit: cover;
     // border-radius: 20px;

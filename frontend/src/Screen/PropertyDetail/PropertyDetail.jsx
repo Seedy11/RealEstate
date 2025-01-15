@@ -1,6 +1,6 @@
 /** @format */
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import crib from "../../Images/pexels-alex-staudinger-1732414.jpg";
 import crib2 from "../../Images/pexels-asad-photo-maldives-1268871.jpg";
 import crib3 from "../../Images/pexels-expect-best-323780.jpg";
@@ -16,32 +16,15 @@ import GridContainer, {
 import { Button, Container } from "react-bootstrap";
 import FormContainer from "../Login/Login.element";
 import { useDispatch, useSelector } from "react-redux";
-import { Property } from "../../redux/slice/letting";
 import { useParams } from "react-router-dom";
 import Map from "../../Components/Map/Map";
-import axios from "axios";
 import { PropertyInfo } from "../../redux/slice/propetydetail";
 
 const PropertyDetail = () => {
   const params = useParams();
-  // const [property, setProperties] = useState();
   const property_id = params.id;
   const dispatch = useDispatch();
 
-  // React.useEffect(() => {
-  //   async function propertyListData() {
-  //     try {
-  //       const propertiesData = await axios.get(
-  //         `http://localhost:3001/rentalProperties/propertyList/${PropertyID}`
-  //       );
-  //       return setProperties(propertiesData.data[0]);
-  //       // console.log(propertiesData.data);
-  //     } catch (error) {
-  //       return error;
-  //     }
-  //   }
-  //   propertyListData();
-  // }, []);
   useEffect(() => {
     dispatch(PropertyInfo(property_id));
   }, [PropertyInfo]);

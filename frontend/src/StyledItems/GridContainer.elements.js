@@ -18,8 +18,8 @@ export const TwoColumn = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 10px;
-  margin: 10rem 0rem;
-  font-size: 1.3rem;
+  // margin: 10rem 0rem;
+  font-size: 1rem;
   .grid-item {
     padding: 10px;
   }
@@ -31,8 +31,8 @@ export const ThreeColumn = styled.div`
   display: grid;
   grid-template-columns: auto auto auto;
   grid-gap: 10px;
-  margin: 8rem 0rem;
-  font-size: 1.3rem;
+  margin: 12rem 0rem;
+  font-size: 0.9rem;
   .grid-item {
     padding: 10px;
   }

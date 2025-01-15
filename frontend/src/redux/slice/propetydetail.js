@@ -18,37 +18,7 @@ export const PropertyInfo = createAsyncThunk(
   }
 );
 const initialState = {
-  PropertyDetailItems: [
-    // {
-    //   Address: "66 ",
-    //   Available_date: "24/06/1998",
-    //   Bathrooms: 4,
-    //   Bedrooms: 1,
-    //   City: "Banjul ",
-    //   Country: "The Gambia",
-    //   Descriptions: `
-    //   **Property Overview**
-    //   This charming is nestled in the heart of Banjul offering a perfect blend of modern convenience and timeless appeal. Featuring 4 bedrooms and1 bathrooms, it spans 300 square feet, making it an ideal choice for professional.
-    //   **Key Features**
-    //   - **Location:** Situated in a prime neighborhood close to city center
-    //   - **Interior:** Spacious open-plan living areas
-    //    a modern kitchen, and a luxurious master suite
-    //   **Additional Highlights**
-    //   - Year Built: 2019
-    //   - Recent Upgrades: 2023
-    //   **Pricing and Contact Information**
-    //   Priced at 450, this property is a fantastic investment opportunity. For more information or to schedule a viewing, please contact 075858558.
-    // `,
-    //   Email: "seedydarbo11@gmail.com",
-    //   First_name: "Seedy",
-    //   Last_name: "Darbo",
-    //   Phone_number: "07388052195",
-    //   Postcode: "bs5 6sh",
-    //   Price: 450.0,
-    //   PropertyID: 231,
-    //   State: "west Yorkshire ",
-    // },
-  ],
+  PropertyDetailItems: [],
 };
 export const propertySlide = createSlice({
   name: "propertyDetail",

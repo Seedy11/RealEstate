@@ -22,21 +22,6 @@ function Letting() {
     "5 Bedroom",
   ];
 
-  // React.useEffect(() => {
-  //   async function propertyListData() {
-  //     try {
-  //       const propertiesData = await axios.get(
-  //         "http://localhost:3001/rentalProperties/propertyList"
-  //       );
-  //       setProperties(propertiesData.data);
-  //       console.log(propertiesData.data);
-  //     } catch (error) {
-  //       return error;
-  //     }
-  //   }
-  //   propertyListData();
-  // }, []);
-
   useEffect(() => {
     dispatch(Property());
   }, [Property]);
@@ -53,6 +38,22 @@ function Letting() {
       })
     );
   }
+
+  React.useEffect(() => {
+    async function searchPropertyList() {
+      try {
+        const getData = await axios.get(
+          `http://localhost:3001/rentalProperties/citySearch/?City='yvyutv'&Bedrooms=8`
+        );
+        console.log("apis", getData);
+      } catch (error) {
+        return error;
+      }
+    }
+
+    searchPropertyList();
+  }, []);
+  // }
 
   return (
     <Container>
@@ -75,6 +76,7 @@ function Letting() {
         property.map((property) => (
           <>
             <LargeContainer
+              cardType='LargeCard'
               id={property.PropertyID}
               key={property.PropertyID}
               Address={property.Address}

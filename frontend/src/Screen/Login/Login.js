@@ -1,7 +1,7 @@
 /** @format */
 
 import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Container, Form } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import FormContainer from "./Login.element";
 import axios from "axios";
@@ -38,42 +38,44 @@ const Login = () => {
   }
   // getUserData();
   return (
-    <FormContainer>
-      <Form>
-        <Form.Group className='mb-3' controlId='formBasicEmail'>
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type='email'
-            placeholder='Enter email'
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
+    <Container>
+      <FormContainer>
+        <Form>
+          <Form.Group className='mb-3' controlId='formBasicEmail'>
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type='email'
+              placeholder='Enter email'
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
 
-        <Form.Group className='mb-3' controlId='formBasicPassword'>
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type='password'
-            placeholder='Password'
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
-        <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-          <Link to='../register'>Register</Link>
-          <h1>{loginStatus}</h1>
-        </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicPassword'>
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type='password'
+              placeholder='Password'
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+            <Link to='../register'>Register</Link>
+            <h1>{loginStatus}</h1>
+          </Form.Group>
 
-        <Button
-          variant='primary'
-          type='submit'
-          onClick={(e) => {
-            e.preventDefault();
-            // userValidation(e.target.value);
-            getUserData();
-          }}>
-          Submit
-        </Button>
-      </Form>
-    </FormContainer>
+          <Button
+            variant='primary'
+            type='submit'
+            onClick={(e) => {
+              e.preventDefault();
+              // userValidation(e.target.value);
+              getUserData();
+            }}>
+            Submit
+          </Button>
+        </Form>
+      </FormContainer>
+    </Container>
   );
 };
 
