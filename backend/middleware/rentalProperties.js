@@ -72,8 +72,7 @@ router.post("/", (req, res) => {
   const State = req.body.State;
   const Price = req.body.Price;
   const longitude = req.body.longitude;
-  const latitude = req.body.longitude;
-
+  const latitude = req.body.latitude;
   const DBTable = {
     First_name,
     Last_name,
@@ -111,6 +110,7 @@ router.post("/", (req, res) => {
   //   }
   // });
 });
+console.log("yes", longitude);
 
 router.get("/propertyList", (req, res) => {
   db.query(`SELECT * FROM  rental_properties`, (err, result) => {
