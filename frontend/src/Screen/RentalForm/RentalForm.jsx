@@ -27,6 +27,8 @@ function RentalForm() {
     Bedrooms: NaN,
     Descriptions: "",
     Price: NaN,
+    latitude: NaN,
+    longitude: NaN,
   });
 
   const sendImage = async (e, file) => {
@@ -36,7 +38,7 @@ function RentalForm() {
     formData.append("image", file);
 
     const result = await axios.post(
-      "http://localhost:3001/rentalProperties/imageUpload",
+      "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/imageUpload",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },

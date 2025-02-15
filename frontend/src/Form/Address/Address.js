@@ -1,18 +1,23 @@
 /** @format */
 
-import React from "react";
+import React, { useEffect } from "react";
 import FormContainer from "../../Screen/Login/Login.element";
 import { Container, Form } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { postcodeInfo } from "../../redux/slice/postcode";
 
 function Address({ dataItems, setDataItems }) {
+  const dispatch = useDispatch();
+  const [postcode, setPostcode] = useState("BS130QH");
   const [setAddressData, AddressData] = useState("");
+
   React.useEffect(() => {
     async function AddressData() {
       try {
         const propertiesData = await axios.get(
-          `http://localhost:3001/rentalProperties/propertyList/${AddressData}`
+          `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/propertyList/${AddressData}`
         );
         return setAddressData(propertiesData.data[0]);
         // console.log(propertiesData.data);
@@ -22,6 +27,13 @@ function Address({ dataItems, setDataItems }) {
     }
     AddressData();
   }, []);
+
+  useEffect(() => {
+    dispatch(postcodeInfo(postcode));
+  }, [postcodeInfo]);
+  const postco = useSelector((state) => state.postcodeInfo.postcodeDetail);
+  console.log("postcode", postco);
+
   return (
     <Container>
       <FormContainer>
@@ -34,7 +46,12 @@ function Address({ dataItems, setDataItems }) {
               name='name'
               value={dataItems.Address}
               onChange={(e) => {
-                setDataItems({ ...dataItems, Address: e.target.value });
+                setDataItems({
+                  ...dataItems,
+                  Address: e.target.value,
+                  latitude: postco.latitude,
+                  longitude: postco.longitude,
+                });
               }}
               required
             />

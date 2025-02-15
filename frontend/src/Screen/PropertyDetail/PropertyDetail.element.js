@@ -14,5 +14,13 @@ const ImageWrapper = styled.h2`
     align-item: center;
   }
 `;
+const PropertyDetailContainer = styled.h2`
+  .background {
+    background-color: white;
+    padding: 2rem 5rem;
+    margin: 2rem 0rem;
+    border-radius: 10px;
+  }
+`;
 
-export default ImageWrapper;
+export { ImageWrapper, PropertyDetailContainer };

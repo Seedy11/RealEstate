@@ -44,7 +44,7 @@ const Register = () => {
 
   const postData = () => {
     axios
-      .post("http://localhost:3001/create", {
+      .post("https://realestate-heruko-5c11eac23d0e.herokuapp.com/create", {
         first_Name: first_Name,
         Last_Name: Last_Name,
         email: email,

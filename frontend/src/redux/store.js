@@ -6,6 +6,7 @@ import User from "./slice/register";
 import Letting from "./slice/letting";
 import Sales from "./slice/sales";
 import PropertyInfo from "./slice/propetydetail";
+import postcodeInfo from "./slice/postcode";
 
 export const store = configureStore({
   reducer: {
@@ -13,5 +14,6 @@ export const store = configureStore({
     lettings: Letting,
     sales: Sales,
     PropertyInfo: PropertyInfo,
+    postcodeInfo: postcodeInfo,
   },
 });

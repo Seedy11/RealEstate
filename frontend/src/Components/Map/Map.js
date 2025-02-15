@@ -9,7 +9,7 @@ function Map() {
   return (
     <Card style={{ height: "500px", width: "100%" }}>
       <GoogleMapReact
-        style={{ height: "20px", width: "50%" }}
+        style={{ height: "20px", width: "50%", borderRadius: "10px" }}
         bootstrapURLKeys={"real-estate-431418"}
         defaultCenter={{ lat: 53.42416763305664, lng: -1.45220148563385 }}
         defaultZoom={15}

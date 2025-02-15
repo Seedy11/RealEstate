@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Map from "../../Components/Map/Map";
 import { PropertyInfo } from "../../redux/slice/propetydetail";
+import { PropertyDetailContainer } from "./PropertyDetail.element";
 
 const PropertyDetail = () => {
   const params = useParams();
@@ -34,7 +35,7 @@ const PropertyDetail = () => {
   console.log("testdetail", property);
 
   return (
-    <>
+    <PropertyDetailContainer>
       {!property ? (
         <h2>no property</h2>
       ) : (
@@ -59,37 +60,35 @@ const PropertyDetail = () => {
           <TwoColumn>
             <Container>
               <h2>Features</h2>
+              <Container className='background'>
+                <ul>
+                  <GridContainer>
+                    <div>
+                      <li>Bedrooms: {property.Bathrooms}</li>
+                      <li>bathrooms: {property.Bathrooms}</li>
+                      <li>price: $650.00</li>
+                    </div>
+                    <div>
+                      <li>available: {property.Available_date}</li>
+                      <li>City: {property.City}</li>
+                      <li>Post code: {property.PostCode}</li>
+                    </div>
+                  </GridContainer>
+                </ul>
+              </Container>
 
-              <ul>
-                <GridContainer>
-                  <div>
-                    <li>Bedrooms: {property.Bathrooms}</li>
-                    <li>bathrooms: {property.Bathrooms}</li>
-                    <li>price: $650.00</li>
-                  </div>
-                  <div>
-                    <li>available: {property.Available_date}</li>
-                    <li>City: {property.City}</li>
-                    <li>Post code: {property.PostCode}</li>
-                  </div>
-                </GridContainer>
-              </ul>
-
-              <hr />
               <h2>Lettings details</h2>
-              <ul>
+              <ul className='background'>
                 <li>
                   Bedrooms: 4 spacious bedrooms, including a luxurious master
                   suite with a walk-in closet and en-suite bathroom.
                 </li>
               </ul>
 
-              <hr />
-
               <h2>property description</h2>
-              <p>Description: {property.Descriptions}</p>
-
-              <hr />
+              <div className='background'>
+                <p>Description: {property.Descriptions}</p>
+              </div>
 
               <Map />
             </Container>
@@ -97,17 +96,14 @@ const PropertyDetail = () => {
             <Container>
               <FormContainer>
                 <h2>contact us</h2>
-                <Button>Call agent</Button>
-                {/* <br />
-            <br /> */}
-                <Button>Request details</Button>
+                <p>{property.Phone_number}</p>
+                <p>{property.Email}</p>
               </FormContainer>
             </Container>
           </TwoColumn>
-          <hr />
         </Container>
       )}
-    </>
+    </PropertyDetailContainer>
   );
 };
 

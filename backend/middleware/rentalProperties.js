@@ -71,6 +71,8 @@ router.post("/", (req, res) => {
   const Country = req.body.Country;
   const State = req.body.State;
   const Price = req.body.Price;
+  const longitude = req.body.longitude;
+  const latitude = req.body.longitude;
 
   const DBTable = {
     First_name,
@@ -87,6 +89,8 @@ router.post("/", (req, res) => {
     Descriptions,
     State,
     Price,
+    longitude,
+    latitude,
     // image_url,
   };
   // const ImageTable = {

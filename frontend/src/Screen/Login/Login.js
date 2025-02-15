@@ -24,7 +24,7 @@ const Login = () => {
     //   console.log(error);
     // }
     axios
-      .post("http://localhost:3001/login", {
+      .post("https://realestate-heruko-5c11eac23d0e.herokuapp.com/login", {
         email: email,
         tenant_password: password,
       })

@@ -30,7 +30,7 @@ function Letting() {
 
   function deletePropertyList(property_id) {
     axios.delete(
-      `http://localhost:3001/rentalProperties/delete/${property_id}`
+      `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/delete/${property_id}`
     );
     setProperties(
       properties.filter((deleteProperty) => {
@@ -43,7 +43,7 @@ function Letting() {
     async function searchPropertyList() {
       try {
         const getData = await axios.get(
-          `http://localhost:3001/rentalProperties/citySearch/?City='yvyutv'&Bedrooms=8`
+          `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/citySearch/?City='yvyutv'&Bedrooms=8`
         );
         console.log("apis", getData);
       } catch (error) {
