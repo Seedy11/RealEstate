@@ -110,7 +110,6 @@ router.post("/", (req, res) => {
   //   }
   // });
 });
-console.log("yes", longitude);
 
 router.get("/propertyList", (req, res) => {
   db.query(`SELECT * FROM  rental_properties`, (err, result) => {
