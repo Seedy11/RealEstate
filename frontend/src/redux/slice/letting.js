@@ -5,7 +5,8 @@ import axios from "axios";
 export const Property = createAsyncThunk("property/data", async (thunkAPI) => {
   try {
     const propertiesData = await axios.get(
-      `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/propertyList/`
+      // `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/propertyList/`
+      `http://localhost:3001/rentalProperties/propertyList/`
     );
     return propertiesData.data;
     // console.log(propertiesData.data);

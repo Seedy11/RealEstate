@@ -50,7 +50,8 @@ function RentalForm() {
   const postData = (e) => {
     axios
       .post(
-        "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties",
+        // "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties",
+        "http://localhost:3001/rentalProperties",
         dataItems
       )
       .then(() => {

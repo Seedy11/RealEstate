@@ -10,7 +10,7 @@ import { postcodeInfo } from "../../redux/slice/postcode";
 
 function Address({ dataItems, setDataItems }) {
   const dispatch = useDispatch();
-  const [postcode, setPostcode] = useState("BS130QH");
+  const [postcode, setPostcode] = useState("");
   const [setAddressData, AddressData] = useState("");
 
   React.useEffect(() => {
@@ -32,7 +32,6 @@ function Address({ dataItems, setDataItems }) {
     dispatch(postcodeInfo(postcode));
   }, [postcodeInfo]);
   const postco = useSelector((state) => state.postcodeInfo.postcodeDetail);
-  console.log("postcode", postco);
 
   return (
     <Container>
@@ -46,11 +45,10 @@ function Address({ dataItems, setDataItems }) {
               name='name'
               value={dataItems.Address}
               onChange={(e) => {
+                // setPostcode(dataItems.Address);
                 setDataItems({
                   ...dataItems,
                   Address: e.target.value,
-                  latitude: postco.latitude,
-                  longitude: postco.longitude,
                 });
               }}
               required
@@ -62,9 +60,24 @@ function Address({ dataItems, setDataItems }) {
               placeholder='Post code'
               name='Postcode'
               value={dataItems.Postcode}
-              onChange={(e) => {
-                setDataItems({ ...dataItems, Postcode: e.target.value });
+              onBlur={(e) => {
+                setPostcode(e.target.value);
+                setDataItems({
+                  ...dataItems,
+                  Postcode: e.target.value,
+                  latitude: postco.latitude,
+                  longitude: postco.longitude,
+                });
+                console.log("postcode4", postco);
               }}
+              // onChange={(e) => {
+              //   setDataItems({
+              //     ...dataItems,
+              //     Postcode: e.target.value,
+              //     latitude: postco.latitude,
+              //     longitude: postco.longitude,
+              //   });
+              // }}
               required
             />
           </Form.Group>{" "}
@@ -75,7 +88,10 @@ function Address({ dataItems, setDataItems }) {
               name='email'
               value={dataItems.City}
               onChange={(e) => {
-                setDataItems({ ...dataItems, City: e.target.value });
+                setDataItems({
+                  ...dataItems,
+                  City: e.target.value,
+                });
               }}
               required
             />
