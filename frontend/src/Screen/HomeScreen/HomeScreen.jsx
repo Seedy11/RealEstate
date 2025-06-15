@@ -11,7 +11,7 @@ import "react-alice-carousel/lib/alice-carousel.css";
 import { FaPhoneAlt } from "react-icons/fa";
 import { CiMail } from "react-icons/ci";
 import Button from "../../Components/Button/Button";
-import GridContainer, {
+import {
   ThreeColumn,
   TwoColumn,
 } from "../../StyledItems/GridContainer.elements";
@@ -62,7 +62,7 @@ const HomeScreen = () => {
           <h2
             style={{
               textAlign: "center",
-              marginBottom: "2rem",
+              margin: "2rem",
               color: "blue",
             }}>
             Explore the properties
@@ -136,7 +136,7 @@ const HomeScreen = () => {
                     Phone_number={property.Phone_number}
                     City={property.City}
                     onClick={() =>
-                      navigate(`/PropertyDetail/${property.property_id}`)
+                      navigate(`/PropertyDetail/${property.PropertyID}`)
                     }
                   />
                 </Col>

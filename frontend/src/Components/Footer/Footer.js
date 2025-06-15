@@ -1,13 +1,6 @@
 /** @format */
 
 import React from "react";
-import {
-  MDBFooter,
-  MDBContainer,
-  MDBCol,
-  MDBRow,
-  MDBRipple,
-} from "mdb-react-ui-kit";
 import Footer from "./Footer.element";
 import { Col, Container, Row } from "react-bootstrap";
 import {
@@ -20,7 +13,7 @@ import {
 export default function App() {
   return (
     <>
-      <footer className='bg-dark text-white py-4'>
+      <Footer className='bg-dark text-white py-4'>
         <Container>
           <Row>
             <Col className='text-center'>
@@ -47,7 +40,7 @@ export default function App() {
             </Col>
           </Row>
         </Container>
-      </footer>
+      </Footer>
     </>
   );
 }

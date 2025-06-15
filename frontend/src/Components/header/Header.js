@@ -38,6 +38,16 @@ function Header() {
                   Letting
                 </Link>
               </Nav.Link>
+              <Nav.Link href='#action/3.1'>
+                <Link to='adminPage' className='nav-decoration'>
+                  Admin Page
+                </Link>
+              </Nav.Link>
+              <Nav.Link href='#action/3.1'>
+                <Link to='dashboard' className='nav-decoration'>
+                  Dashboard
+                </Link>
+              </Nav.Link>
               <NavDropdown title='Admin' id='nav-dropdown'>
                 <NavDropdown.Item eventKey='4.1'>
                   {" "}
@@ -55,42 +65,6 @@ function Header() {
             </Nav>
           </Navbar.Collapse>
         </Navbar>
-        {/* <Nav className='bd-grid'>
-        <div>
-          <a href='#' className='nav_logo'>
-            Seedy
-          </a>
-        </div>
-
-        <div id='nav-menu'>
-          <ul className='nav_list'>
-            <li className='nav_item'>
-              <a href='#home' className='nav_link active'>
-                Home
-              </a>
-            </li>
-
-            <li className='nav_item'>
-              <a href='#skills' className='nav_link'>
-                Skills
-              </a>
-            </li>
-            <li className='nav_item'>
-              <a href='#work' className='nav_link'>
-                Works
-              </a>
-            </li>
-            <li className='nav_item'>
-              <a href='#contact' className='nav_link'>
-                Contact
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div className='nav_toggle' id='nav-toggle'>
-          <i className='bx bx-menu'></i>
-        </div>
-      </Nav> */}
       </Container>
     </HeaderContainer>
   );

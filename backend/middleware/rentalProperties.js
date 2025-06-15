@@ -121,7 +121,7 @@ router.get("/propertyList", (req, res) => {
 router.get("/propertyList/:id", (req, res) => {
   const property_id = req.params.id;
   db.query(
-    `SELECT * FROM  rental_properties WHERE property_id = ?
+    `SELECT * FROM  rental_properties WHERE PropertyID= ?
     `,
     property_id,
     (err, result) => {

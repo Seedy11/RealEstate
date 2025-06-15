@@ -7,12 +7,15 @@ import crib from "../../Images/pexels-alex-staudinger-1732414.jpg";
 import crib2 from "../../Images/pexels-asad-photo-maldives-1268871.jpg";
 import crib3 from "../../Images/pexels-expect-best-323780.jpg";
 import crib4 from "../../Images/pexels-mark-mccammon-2724749.jpg";
+import { MdDeleteForever } from "react-icons/md";
 import Logo from "../../Images/logo.png";
 import {
   CardContainer,
+  ImageAdmin,
   ImageWrapper,
   Position,
 } from "./LargeContainer.element";
+import { SlOptionsVertical } from "react-icons/sl";
 import { Carousel } from "react-responsive-carousel";
 import { FaBed } from "react-icons/fa";
 import { FaBath } from "react-icons/fa6";
@@ -148,6 +151,29 @@ const LargeContainer = (props) => {
             {/* </Col> */}
           </Row>
         </CardContainer>
+      );
+    // eslint-disable-next-line no-duplicate-case
+    case "adminCard":
+      return (
+        <Card style={{ marginTop: "5px" }}>
+          <ImageAdmin>
+            <img src={crib} />
+
+            <Card.Body>
+              id: {props.PropertyID} Address: {props.Address} City: {props.City}
+            </Card.Body>
+            <MdDeleteForever
+              style={{
+                fontSize: "1.5rem",
+                color: "red",
+                marginTop: "1rem",
+              }}
+            />
+            <SlOptionsVertical
+              style={{ fontSize: "1.5rem", marginTop: "1rem" }}
+            />
+          </ImageAdmin>
+        </Card>
       );
     default:
       return;

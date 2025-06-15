@@ -51,7 +51,7 @@ function RentalForm() {
     axios
       .post(
         // "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties",
-        "http://localhost:3001/rentalProperties",
+        "https://gentle-thicket-62472-2fc0df79a11d.herokuapp.com/rentalProperties",
         dataItems
       )
       .then(() => {

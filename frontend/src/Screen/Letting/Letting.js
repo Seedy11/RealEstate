@@ -86,9 +86,7 @@ function Letting() {
               Price={property.Price}
               Phone_number={property.Phone_number}
               City={property.City}
-              onClick={() =>
-                navigate(`/PropertyDetail/${property.property_id}`)
-              }
+              onClick={() => navigate(`/PropertyDetail/${property.PropertyID}`)}
               delete={() => {
                 deletePropertyList(property.PropertyID);
               }}

@@ -1,11 +1,17 @@
 /** @format */
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
+// const db = mysql.createConnection({
+//   user: "root",
+//   host: "localhost",
+//   password: "3740214s",
+//   database: "realestate",
+// });
 const db = mysql.createConnection({
-  user: "az1u4gtclda8hzqf",
-  host: "fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
-  password: "tuhjfeag2xyuvv2r",
-  database: "gw4rxltzkpc7lot9",
+  user: "nzn7l3a28wv5aejf",
+  host: "m60mxazb4g6sb4nn.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+  password: "yt31lucbb7xprj6v",
+  database: "h922x7sa5ja1gdkf",
 });
-//mysql://az1u4gtclda8hzqf:tuhjfeag2xyuvv2r@fojvtycq53b2f2kx.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/gw4rxltzkpc7lot9
+
 module.exports = { db, mysql };

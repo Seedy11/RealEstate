@@ -11,8 +11,10 @@ import Login from "./Screen/Login/Login";
 import Register from "./Screen/Register/Register";
 import Footer from "./Components/Footer/Footer";
 import RentalForm from "./Screen/RentalForm/RentalForm";
+import AdminPage from "./Screen/AdminPage/AdminPage";
 import PropertyDetail from "./Screen/PropertyDetail/PropertyDetail";
 import axios from "axios";
+import Dashboard from "./Screen/Dashboard/Dashboard";
 // require("dotenv").config();
 
 function App() {
@@ -35,15 +37,17 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      <br /> <br />
       {/* <HomeScreen/> */}
       <Routes>
         <Route path='/' element={<HomeScreen />} />
         <Route path='login' element={<Login />} />
         <Route path='letting' element={<Letting />} />
-        {/* <Route path='mortgage' element={<Mortgage />} /> */}
-        <Route path='rentalForm' element={<RentalForm />} />
+        <Route path='adminPage' element={<AdminPage />} />
+        <Route path='adminPage/rentalForm' element={<RentalForm />} />
         <Route path='register' element={<Register />} />
         <Route path='PropertyDetail/:id' element={<PropertyDetail />} />
+        <Route path='dashboard' element={<Dashboard />} />
       </Routes>
       <Footer />
     </BrowserRouter>

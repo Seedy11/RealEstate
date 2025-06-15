@@ -8,7 +8,7 @@ export const HeaderContainer = styled.h2`
   // border: 1px solid #dee2e6;
   // font-style: none;
   // padding-left: 9rem;
-
+  margin-top: 0rem;
   width: 100%;
   position: fixed;
   top: 0;
@@ -35,17 +35,12 @@ export const HeaderContainer = styled.h2`
   .nav_logo {
     color: #0e2431;
   }
-  // .nav_item {
-  //   margin-left: 3rem;
-  //   margin-bottom: 0;
-  // }
+
   .nav_item {
     margin-bottom: 2rem;
     padding-left: 1.5rem;
   }
-  // .nav_link {
-  //   color: #0e2431;
-  // }
+
   .nav_link {
     position: relative;
     color: #fff;
@@ -63,11 +58,7 @@ export const HeaderContainer = styled.h2`
     top: 2rem;
     background-color: var(--first-color);
   }
-  // .nav_toggle {
-  //   color: var(--second-color);
-  //   font-size: 1.5rem;
-  //   cursor: pointer;
-  // }
+
   .nav_link:hover::after {
     position: absolute;
     content: "";

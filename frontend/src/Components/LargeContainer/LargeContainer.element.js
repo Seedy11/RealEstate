@@ -50,3 +50,15 @@ export const Position = styled.h2`
     font-size: 13px;
   }
 `;
+export const ImageAdmin = styled.h2`
+  display: flex;
+ font-size: 20px;
+ margin-right: 2rem;
+  img {
+    max-height: 50px;
+    width: 50px,
+    object-fit: cover;
+    // border-radius: 20px;
+    align-item: center;
+  }
+`;

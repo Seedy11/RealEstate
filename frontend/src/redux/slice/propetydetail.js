@@ -5,10 +5,10 @@ import axios from "axios";
 
 export const PropertyInfo = createAsyncThunk(
   "propertyDetail/data",
-  async (property_id, thunkAPI) => {
+  async (PropertyID, thunkAPI) => {
     try {
       const propertiesData = await axios.get(
-        `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/propertyList/${property_id}`
+        `https://gentle-thicket-62472-2fc0df79a11d.herokuapp.com/rentalProperties/propertyList/${PropertyID}`
       );
       return propertiesData.data;
       // console.log(propertiesData.data);

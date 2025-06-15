@@ -23,11 +23,11 @@ import { PropertyDetailContainer } from "./PropertyDetail.element";
 
 const PropertyDetail = () => {
   const params = useParams();
-  const property_id = params.id;
+  const PropertyID = params.id;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(PropertyInfo(property_id));
+    dispatch(PropertyInfo(PropertyID));
   }, [PropertyInfo]);
   const property = useSelector(
     (state) => state.PropertyInfo.PropertyDetailItems[0]
