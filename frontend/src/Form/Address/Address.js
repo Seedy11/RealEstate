@@ -28,10 +28,10 @@ function Address({ dataItems, setDataItems }) {
     AddressData();
   }, []);
 
+  const postco = useSelector((state) => state.postcodeInfo.postcodeDetail);
   useEffect(() => {
     dispatch(postcodeInfo(postcode));
   }, [postcodeInfo]);
-  const postco = useSelector((state) => state.postcodeInfo.postcodeDetail);
 
   return (
     <Container>
@@ -60,7 +60,7 @@ function Address({ dataItems, setDataItems }) {
               placeholder='Post code'
               name='Postcode'
               value={dataItems.Postcode}
-              onBlur={(e) => {
+              onChange={(e) => {
                 setPostcode(e.target.value);
                 setDataItems({
                   ...dataItems,

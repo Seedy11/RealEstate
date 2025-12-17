@@ -56,7 +56,7 @@ const Register = () => {
       });
   };
   return (
-    <Container>
+    <Container style={{ margin: "13.5rem auto 13.5rem auto" }}>
       <FormContainer>
         <Form>
           <Form.Group className='mb-3' controlId='formBasicEmail'>

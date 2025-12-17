@@ -8,121 +8,96 @@ const path = require("path");
 
 router.use(express.json());
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, "uploadImage");
-//   },
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploadImage");
+  },
 
-//   filename: (req, file, cb) => {
-//     console.log(file);
-//     cb(null, Date.now() + path.extname(file.originalname));
-//   },
-// });
+  filename: (req, file, cb) => {
+    console.log(file);
+    cb(
+      null,
+      file.fieldname + "_" + Date.now() + path.extname(file.originalname)
+    );
+  },
+});
 
-// const upload = multer({ destination: "/imageUpload" });
+const upload = multer({ storage });
 
-// router.post("/imageUpload", upload.single("image_url"), (req, res) => {
-//   const image_url = req.file.image_url;
-//   console.log("uh3", req.file.image_url);
-//   const ImageTable = {
-//     image_url,
-//   };
+router.post(
+  "/",
+  upload.array("Images", 10), // must match FormData key
+  (req, res) => {
+    try {
+      const {
+        Address,
+        City,
+        First_name,
+        Last_name,
+        Email,
+        Postcode,
+        Bedrooms,
+        Phone_number,
+        Descriptions,
+        Available_date,
+        Bathrooms,
+        Country,
+        State,
+        Price,
+      } = req.body;
 
-//   db.query(`INSERT INTO images SET ?`, ImageTable, (err, result) => {
-//     if (err) {
-//       console.log("error", err);
-//     } else {
-//       res.send("Values Inserted");
-//     }
-//   });
-// });
-const upload = multer({ dest: "uploadImage" });
+      const imageUrls = req.files.map(
+        (file) => `/uploadImage/${file.filename}`
+      );
 
-router.post("/imageUpload", upload.single("image"), (req, res) => {
-  const image_url = req.file.filename;
-  const ImageTable = {
-    image_url,
-  };
-  // Save this data to a database probably
-  db.query(`INSERT INTO images SET ?`, ImageTable, (err, result) => {
-    if (err) {
-      console.log("error", err);
-    } else {
-      res.send("Values Inserted");
+      const DBTable = {
+        First_name,
+        Last_name,
+        Email,
+        Phone_number,
+        Available_date,
+        Address,
+        Postcode,
+        City,
+        Country,
+        Bathrooms,
+        Bedrooms,
+        Descriptions,
+        State,
+        Price,
+      };
+
+      db.query(
+        `INSERT INTO rental_properties SET ?`,
+        DBTable,
+        (err, result) => {
+          if (err)
+            return res.status(500).json({ error: "Property insert failed" });
+
+          const propertyId = result.insertId;
+
+          if (!imageUrls.length) return res.json({ propertyId });
+
+          const imageValues = imageUrls.map((url) => [url, propertyId]);
+
+          db.query(
+            `INSERT INTO images (Image_url, PropertyID) VALUES ?`,
+            [imageValues],
+            () =>
+              res.json({ message: "Property + images inserted", propertyId })
+          );
+        }
+      );
+    } catch (err) {
+      res.status(500).json({ error: "Server error" });
     }
-  });
-
-  // console.log("image", image_url);
-  return res.send({ image_url });
-});
-
-router.post("/", (req, res) => {
-  const Address = req.body.Address;
-  const City = req.body.City;
-  const First_name = req.body.First_name;
-  const Last_name = req.body.Last_name;
-  const Email = req.body.Email;
-  const Postcode = req.body.Postcode;
-  const Bedrooms = req.body.Bedrooms;
-  const Phone_number = req.body.Phone_number;
-  const Descriptions = req.body.Descriptions;
-  const Available_date = req.body.Available_date;
-  const Bathrooms = req.body.Bathrooms;
-  const Country = req.body.Country;
-  const State = req.body.State;
-  const Price = req.body.Price;
-  const longitude = req.body.longitude;
-  const latitude = req.body.latitude;
-  const DBTable = {
-    First_name,
-    Last_name,
-    Email,
-    Phone_number,
-    Available_date,
-    Address,
-    Postcode,
-    City,
-    Country,
-    Bathrooms,
-    Bedrooms,
-    Descriptions,
-    State,
-    Price,
-    longitude,
-    latitude,
-    // image_url,
-  };
-  // const ImageTable = {
-  //   image_url,
-  // };
-  db.query(`INSERT INTO rental_properties SET ?`, DBTable, (err, result) => {
-    if (err) {
-      console.log("error", err);
-    } else {
-      res.send("Values Inserted");
-    }
-  });
-  // db.query(`INSERT INTO images SET ?`, ImageTable, (err, result) => {
-  //   if (err) {
-  //     console.log("error", err);
-  //   } else {
-  //     res.send("Values Inserted");
-  //   }
-  // });
-});
-
-router.get("/propertyList", (req, res) => {
-  db.query(`SELECT * FROM  rental_properties`, (err, result) => {
-    if (err) throw err;
-    res.send(result);
-  });
-});
+  }
+);
 
 router.get("/propertyList/:id", (req, res) => {
   const property_id = req.params.id;
   db.query(
-    `SELECT * FROM  rental_properties WHERE PropertyID= ?
-    `,
+    `SELECT * FROM  rental_properties WHERE PropertyID = ?`,
     property_id,
     (err, result) => {
       if (err) throw err;
@@ -175,7 +150,7 @@ router.put("/update", (req, res) => {
   };
 
   db.query(
-    `UPDATE rental_properties SET ? WHERE property_id`,
+    `UPDATE rental_properties SET ? WHERE PropertyID`,
     DBTable,
     (err, result) => {
       if (err) {
@@ -190,7 +165,7 @@ router.put("/update", (req, res) => {
 router.delete(`/delete/:id`, (req, res) => {
   const id = req.params.id;
   db.query(
-    `DELETE FROM rental_properties WHERE property_id = `,
+    `DELETE FROM rental_properties WHERE PropertyID = ?`,
     id,
     (err, result) => {
       if (err) {

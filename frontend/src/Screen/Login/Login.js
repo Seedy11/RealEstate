@@ -24,7 +24,7 @@ const Login = () => {
     //   console.log(error);
     // }
     axios
-      .post("https://gentle-thicket-62472-2fc0df79a11d.herokuapp.com/login", {
+      .post("https://peaceful-ocean-19804-a5eacab3df7e.herokuapp.com/login", {
         email: email,
         tenant_password: password,
       })
@@ -38,7 +38,7 @@ const Login = () => {
   }
   // getUserData();
   return (
-    <Container style={{ margin: "9.5rem auto 9.5rem auto" }}>
+    <Container style={{ margin: "19.5rem auto 19.5rem auto" }}>
       <FormContainer>
         <Form>
           <Form.Group className='mb-3' controlId='formBasicEmail'>

@@ -28,16 +28,16 @@ function Letting() {
   const property = useSelector((state) => state.lettings.PropertyItems);
   console.log("test", property);
 
-  function deletePropertyList(property_id) {
-    axios.delete(
-      `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/delete/${property_id}`
-    );
-    setProperties(
-      properties.filter((deleteProperty) => {
-        return deleteProperty.property_id !== property_id;
-      })
-    );
-  }
+  // function deletePropertyList(property_id) {
+  //   axios.delete(
+  //     `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/delete/${property_id}`
+  //   );
+  //   setProperties(
+  //     properties.filter((deleteProperty) => {
+  //       return deleteProperty.property_id !== property_id;
+  //     })
+  //   );
+  // }
 
   React.useEffect(() => {
     async function searchPropertyList() {
@@ -87,9 +87,9 @@ function Letting() {
               Phone_number={property.Phone_number}
               City={property.City}
               onClick={() => navigate(`/PropertyDetail/${property.PropertyID}`)}
-              delete={() => {
-                deletePropertyList(property.PropertyID);
-              }}
+              // delete={() => {
+              //   deletePropertyList(property.PropertyID);
+              // }}
             />
           </>
         ))

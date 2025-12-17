@@ -12,6 +12,7 @@ import ImageUploader from "../../Form/ImageUploader/ImageUploader";
 function RentalForm() {
   const [page, setPage] = useState(0);
   const [file, setFile] = useState("");
+  const [uploadedImage, setUploadedImage] = useState({});
   const [dataItems, setDataItems] = useState({
     First_name: "",
     Last_name: "",
@@ -27,36 +28,31 @@ function RentalForm() {
     Bedrooms: NaN,
     Descriptions: "",
     Price: NaN,
-    latitude: NaN,
-    longitude: NaN,
+    Images: [],
   });
 
-  const sendImage = async (e, file) => {
-    // e.preventDefault();
-
+  console.log(uploadedImage, "jyfgt");
+  const postData = () => {
     const formData = new FormData();
-    formData.append("image", file);
 
-    const result = await axios.post(
-      "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/imageUpload",
-      formData,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
+    // append all fields
+    for (const key in dataItems) {
+      if (key !== "Images") {
+        formData.append(key, dataItems[key]);
       }
-    );
-    console.log(result.data);
-  };
+    }
 
-  const postData = (e) => {
+    // append images
+    dataItems.Images.forEach((file) => {
+      formData.append("Images", file); // must match backend multer field
+    });
+
     axios
-      .post(
-        // "https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties",
-        "https://gentle-thicket-62472-2fc0df79a11d.herokuapp.com/rentalProperties",
-        dataItems
-      )
-      .then(() => {
-        console.log("success");
-      });
+      .post("http://localhost:3001/rentalProperties", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => console.log("success", res.data))
+      .catch((err) => console.error(err));
   };
   const pageRender = () => {
     if (page === 0) {
@@ -70,13 +66,16 @@ function RentalForm() {
         <PropertyFeature dataItems={dataItems} setDataItems={setDataItems} />
       );
     } else if (page === 3) {
-      return <ImageUploader setFile={file} submit={sendImage} />;
+      return (
+        <ImageUploader dataItems={dataItems} setDataItems={setDataItems} />
+      );
     }
   };
 
   return (
-    <Container>
+    <Container style={{ margin: "5.5rem auto " }}>
       <h1>form</h1>
+
       <div>{pageRender()}</div>
       <GridContainer>
         <Button
@@ -97,7 +96,7 @@ function RentalForm() {
               setPage((page) => page + 1);
             }
           }}>
-          {page === 3 ? "Submit" : "Next"}
+          {page === 4 ? "Submit" : "Next"}
         </Button>
       </GridContainer>
     </Container>

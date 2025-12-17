@@ -44,7 +44,7 @@ function App() {
         <Route path='login' element={<Login />} />
         <Route path='letting' element={<Letting />} />
         <Route path='adminPage' element={<AdminPage />} />
-        <Route path='adminPage/rentalForm' element={<RentalForm />} />
+        <Route path='rentalForm' element={<RentalForm />} />
         <Route path='register' element={<Register />} />
         <Route path='PropertyDetail/:id' element={<PropertyDetail />} />
         <Route path='dashboard' element={<Dashboard />} />

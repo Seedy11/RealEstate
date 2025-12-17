@@ -58,7 +58,11 @@ const HomeScreen = () => {
             <img src={crib4} />
           </ImageWrapper>
         </Col>
-        <Col>
+        <Col
+          style={{
+            textAlign: "center",
+            margin: "6rem",
+          }}>
           <h2
             style={{
               textAlign: "center",
@@ -81,8 +85,16 @@ const HomeScreen = () => {
 
         {/* </Row> */}
       </TwoColumn>
-      <Container>
-        <ThreeColumn>
+      <Container
+      // style={{
+      //   textAlign: "center",
+      //   margin: "10rem",
+      // }}
+      >
+        <ThreeColumn
+          style={{
+            marginBottom: "10rem",
+          }}>
           <Row>
             <h2
               style={{

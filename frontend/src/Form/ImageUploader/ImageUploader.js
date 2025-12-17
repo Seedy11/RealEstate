@@ -1,64 +1,100 @@
 /** @format */
+// import { useState, useEffect } from "react";
 
-import axios from "axios";
-import React, { useState } from "react";
-import { Button, Form } from "react-bootstrap";
+import { useRef } from "react";
 
-function ImageUploader({ submit }) {
-  // const [image_url, setImage] = useState();
-  // const postData = (e) => {
-  //   axios
-  //     .post("http://localhost:3001/rentalProperties/imageUpload", {
-  //       image_url: image_url,
-  //     })
-  //     .then(() => {
-  //       console.log("success");
-  //     });
-  // };
+// function ImageUploader() {
+//   const [uploadedImages, setUploadedImages] = useState([]);
 
-  // return (
-  //   <form
-  //     method='POST'
-  //     action='http://localhost:3001/rentalProperties/imageUpload'
-  //     encType='multipart/form-data'>
-  //     <h1>Image uplaoder</h1>
-  //     <input
-  //       type='file'
-  //       name='image'
-  //       // id='image'
-  //       // onChange={(e) => setImage(e.target.files[0])}
-  //       // accept='image/png, image/jpeg'
-  //     />
-  //     <Button
-  //       variant='primary'
-  //       type='submit'
-  //       // onClick={(e) => {
-  //       //   e.preventDefault();
-  //       //   // userValidation(e.target.value);
-  //       //   console.log("test66", image_url);
-  //       //   postData(image_url);
-  //       // }}
-  //     >
-  //       Submit
-  //     </Button>
-  //   </form>
-  // );
+//   const handleImageChange = (e) => {
+//     const file = e.target.files[0];
+//     if (!file) return;
 
-  const [file, setFile] = useState();
+//     const imageURL = URL.createObjectURL(file);
+
+//     setUploadedImages((prev) => [...prev, imageURL]);
+//     e.target.value = ""; // allow re-uploading same file
+//   };
+
+//   // Cleanup object URLs
+//   useEffect(() => {
+//     return () => {
+//       uploadedImages.forEach((url) => URL.revokeObjectURL(url));
+//     };
+//   }, [uploadedImages]);
+//   console.log("imageuploader", uploadedImages);
+
+//   return (
+//     <div>
+//       <h2>Upload Images</h2>
+
+//       <button
+//         onClick={() => document.getElementById("fileInput").click()}
+//         style={{ marginLeft: "10px" }}>
+//         Add Image
+//       </button>
+
+//       <input
+//         id='fileInput'
+//         type='file'
+//         accept='image/*'
+//         onChange={handleImageChange}
+//         style={{ display: "none" }}
+//       />
+
+//       {uploadedImages.map((src, i) => (
+//         <div key={i} style={{ marginBottom: "1rem" }}>
+//           <img
+//             src={src}
+//             alt={`Uploaded ${i + 1}`}
+//             width='200'
+//             style={{ display: "block", marginTop: "0.5rem" }}
+//           />
+//         </div>
+//       ))}
+//     </div>
+//   );
+// }
+
+// export default ImageUploader;
+
+function ImageUploader({ dataItems, setDataItems }) {
+  const inputRef = useRef(null);
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // store file object
+    setDataItems((prev) => ({
+      ...prev,
+      Images: [...prev.Images, file],
+    }));
+
+    e.target.value = "";
+  };
 
   return (
-    <div className='row'>
-      <Form onSubmit={(e) => submit(e, file)}>
-        <input
-          filename={file}
-          onChange={(e) => setFile(e.target.files[0])}
-          type='file'
-          accept='image/*'></input>
-
-        <button>Submit</button>
-      </Form>
+    <div>
+      <h2>Upload Images</h2>
+      <button onClick={() => inputRef.current.click()}>Add Image</button>
+      <input
+        ref={inputRef}
+        type='file'
+        accept='image/*'
+        onChange={handleImageChange}
+        style={{ display: "none" }}
+      />
+      {dataItems.Images.map((file, i) => (
+        <img
+          key={i}
+          src={URL.createObjectURL(file)}
+          alt={file.name}
+          width='200'
+          style={{ display: "block", marginTop: "10px" }}
+        />
+      ))}
     </div>
   );
 }
-
 export default ImageUploader;

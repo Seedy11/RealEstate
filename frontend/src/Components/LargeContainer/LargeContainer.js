@@ -19,8 +19,19 @@ import { SlOptionsVertical } from "react-icons/sl";
 import { Carousel } from "react-responsive-carousel";
 import { FaBed } from "react-icons/fa";
 import { FaBath } from "react-icons/fa6";
+import { useDispatch } from "react-redux";
+import { propertyDelete } from "../../redux/slice/deleteProperty";
+import { useNavigate } from "react-router-dom";
 
 const LargeContainer = (props) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleDelete = () => {
+    dispatch(propertyDelete(props.PropertyID));
+    window.location.reload();
+  };
+
   switch (props.cardType) {
     case "LargeCard":
       return (
@@ -132,21 +143,6 @@ const LargeContainer = (props) => {
                 </Card.Text>
               </Position>
               {/* <hr /> */}
-
-              {/* <Position style={{ fontSize: "1rem" }}>
-                <Card.Text>
-                  <img
-                    src={Logo}
-                    className='card-img-top'
-                    alt='...'
-                    style={{ width: "3rem" }}
-                  />
-                </Card.Text>
-                <Row>
-                  <Card.Text>Tigers Estate Agents: </Card.Text>
-                  <Card.Text>{props.Phone_number}</Card.Text>
-                </Row>
-              </Position> */}
             </Card.Body>
             {/* </Col> */}
           </Row>
@@ -163,6 +159,10 @@ const LargeContainer = (props) => {
               id: {props.PropertyID} Address: {props.Address} City: {props.City}
             </Card.Body>
             <MdDeleteForever
+              onClick={
+                handleDelete
+                // navigate("/");
+              }
               style={{
                 fontSize: "1.5rem",
                 color: "red",

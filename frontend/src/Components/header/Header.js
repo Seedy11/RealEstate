@@ -27,11 +27,6 @@ function Header() {
                   Home
                 </Link>
               </Nav.Link>
-              <Nav.Link to='login'>
-                <Link to='login' className='nav-decoration'>
-                  Login
-                </Link>
-              </Nav.Link>
 
               <Nav.Link href='#action/3.1'>
                 <Link to='letting' className='nav-decoration'>
@@ -48,7 +43,12 @@ function Header() {
                   Dashboard
                 </Link>
               </Nav.Link>
-              <NavDropdown title='Admin' id='nav-dropdown'>
+              <Nav.Link to='login' style={{ position: "absolute", right: "0" }}>
+                <Link to='login' className='nav-decoration'>
+                  Login
+                </Link>
+              </Nav.Link>
+              {/* <NavDropdown title='Admin' id='nav-dropdown'>
                 <NavDropdown.Item eventKey='4.1'>
                   {" "}
                   <Link to='rentalForm' className='nav-decoration'>
@@ -61,7 +61,7 @@ function Header() {
                     Add user admin
                   </Link>
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
           </Navbar.Collapse>
         </Navbar>

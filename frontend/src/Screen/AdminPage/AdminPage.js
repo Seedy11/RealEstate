@@ -56,7 +56,7 @@ function AdminPage() {
   // }
 
   return (
-    <Container>
+    <Container style={{ margin: "9rem auto 9rem auto" }}>
       <TwoColumn style={{ padding: "12rem 5rem" }}>
         <div>
           {property.length === 0 ? (
@@ -100,7 +100,7 @@ function AdminPage() {
                 the bulk of the card's content.
               </Card.Text>
               {/* <Card.Link href='#'>Card Link</Card.Link> */}
-              <Link to='rentalForm' className='nav-decoration'>
+              <Link to='/rentalForm' className='nav-decoration'>
                 Add Property
               </Link>
               {/* <Card.Link href='#'>Another Link</Card.Link> */}
