@@ -1,62 +1,47 @@
 /** @format */
-// import { useState, useEffect } from "react";
+import React, { useRef } from "react";
+import styled from "styled-components";
 
-import { useRef } from "react";
+const UploaderContainer = styled.div`
+  max-width: 700px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: #fff;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  text-align: center;
+`;
 
-// function ImageUploader() {
-//   const [uploadedImages, setUploadedImages] = useState([]);
+const UploadButton = styled.button`
+  padding: 0.6rem 1.2rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-bottom: 1rem;
 
-//   const handleImageChange = (e) => {
-//     const file = e.target.files[0];
-//     if (!file) return;
+  &:hover {
+    background-color: #0056b3;
+  }
+`;
 
-//     const imageURL = URL.createObjectURL(file);
+const PreviewContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+`;
 
-//     setUploadedImages((prev) => [...prev, imageURL]);
-//     e.target.value = ""; // allow re-uploading same file
-//   };
-
-//   // Cleanup object URLs
-//   useEffect(() => {
-//     return () => {
-//       uploadedImages.forEach((url) => URL.revokeObjectURL(url));
-//     };
-//   }, [uploadedImages]);
-//   console.log("imageuploader", uploadedImages);
-
-//   return (
-//     <div>
-//       <h2>Upload Images</h2>
-
-//       <button
-//         onClick={() => document.getElementById("fileInput").click()}
-//         style={{ marginLeft: "10px" }}>
-//         Add Image
-//       </button>
-
-//       <input
-//         id='fileInput'
-//         type='file'
-//         accept='image/*'
-//         onChange={handleImageChange}
-//         style={{ display: "none" }}
-//       />
-
-//       {uploadedImages.map((src, i) => (
-//         <div key={i} style={{ marginBottom: "1rem" }}>
-//           <img
-//             src={src}
-//             alt={`Uploaded ${i + 1}`}
-//             width='200'
-//             style={{ display: "block", marginTop: "0.5rem" }}
-//           />
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
-
-// export default ImageUploader;
+const PreviewImage = styled.img`
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+`;
 
 function ImageUploader({ dataItems, setDataItems }) {
   const inputRef = useRef(null);
@@ -65,7 +50,6 @@ function ImageUploader({ dataItems, setDataItems }) {
     const file = e.target.files[0];
     if (!file) return;
 
-    // store file object
     setDataItems((prev) => ({
       ...prev,
       Images: [...prev.Images, file],
@@ -75,9 +59,11 @@ function ImageUploader({ dataItems, setDataItems }) {
   };
 
   return (
-    <div>
-      <h2>Upload Images</h2>
-      <button onClick={() => inputRef.current.click()}>Add Image</button>
+    <UploaderContainer>
+      <h2>Upload Property Images</h2>
+      <UploadButton onClick={() => inputRef.current.click()}>
+        Add Image
+      </UploadButton>
       <input
         ref={inputRef}
         type='file'
@@ -85,16 +71,17 @@ function ImageUploader({ dataItems, setDataItems }) {
         onChange={handleImageChange}
         style={{ display: "none" }}
       />
-      {dataItems.Images.map((file, i) => (
-        <img
-          key={i}
-          src={URL.createObjectURL(file)}
-          alt={file.name}
-          width='200'
-          style={{ display: "block", marginTop: "10px" }}
-        />
-      ))}
-    </div>
+      <PreviewContainer>
+        {dataItems.Images.map((file, i) => (
+          <PreviewImage
+            key={i}
+            src={URL.createObjectURL(file)}
+            alt={file.name}
+          />
+        ))}
+      </PreviewContainer>
+    </UploaderContainer>
   );
 }
+
 export default ImageUploader;

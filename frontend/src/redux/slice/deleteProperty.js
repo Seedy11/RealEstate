@@ -8,7 +8,7 @@ export const propertyDelete = createAsyncThunk(
   async (PropertyID, thunkAPI) => {
     try {
       const response = await axios.delete(
-        `http://localhost:3001/rentalProperties/delete/${PropertyID}`
+        `https://stark-spire-28814-ebfee6c4755b.herokuapp.com/rentalProperties/delete/${PropertyID}`
       );
       alert("deleted");
       return PropertyID; // Return the ID to filter out

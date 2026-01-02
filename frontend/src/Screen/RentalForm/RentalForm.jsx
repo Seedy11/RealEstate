@@ -1,18 +1,27 @@
 /** @format */
-
 import React, { useState } from "react";
 import PersonalDetail from "../../Form/PersonalDetail/PersonalDetail";
 import Address from "../../Form/Address/Address";
 import PropertyFeature from "../../Form/PropetyFeature/PropertyFeature";
-import { Button, Container } from "react-bootstrap";
+import ImageUploader from "../../Form/ImageUploader/ImageUploader";
+import { Button, Container, ProgressBar } from "react-bootstrap";
 import GridContainer from "../../StyledItems/GridContainer.elements";
 import axios from "axios";
-import ImageUploader from "../../Form/ImageUploader/ImageUploader";
+import styled from "styled-components";
+
+const FormTitle = styled.h2`
+  text-align: center;
+  margin-bottom: 2rem;
+`;
+
+const ButtonGroup = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+`;
 
 function RentalForm() {
   const [page, setPage] = useState(0);
-  const [file, setFile] = useState("");
-  const [uploadedImage, setUploadedImage] = useState({});
   const [dataItems, setDataItems] = useState({
     First_name: "",
     Last_name: "",
@@ -24,81 +33,92 @@ function RentalForm() {
     Available_date: "",
     Country: "",
     State: "",
-    Bathrooms: NaN,
-    Bedrooms: NaN,
+    Bathrooms: 0,
+    Bedrooms: 0,
     Descriptions: "",
-    Price: NaN,
+    Price: 0,
     Images: [],
   });
 
-  console.log(uploadedImage, "jyfgt");
   const postData = () => {
     const formData = new FormData();
 
-    // append all fields
     for (const key in dataItems) {
       if (key !== "Images") {
         formData.append(key, dataItems[key]);
       }
     }
 
-    // append images
     dataItems.Images.forEach((file) => {
-      formData.append("Images", file); // must match backend multer field
+      formData.append("Images", file);
     });
 
     axios
-      .post("http://localhost:3001/rentalProperties", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then((res) => console.log("success", res.data))
+      .post(
+        "https://stark-spire-28814-ebfee6c4755b.herokuapp.com/rentalProperties",
+        formData,
+        { headers: { "Content-Type": "multipart/form-data" } }
+      )
+      .then((res) => alert("Property submitted successfully!"))
       .catch((err) => console.error(err));
   };
+
   const pageRender = () => {
-    if (page === 0) {
-      return (
-        <PersonalDetail dataItems={dataItems} setDataItems={setDataItems} />
-      );
-    } else if (page === 1) {
-      return <Address dataItems={dataItems} setDataItems={setDataItems} />;
-    } else if (page === 2) {
-      return (
-        <PropertyFeature dataItems={dataItems} setDataItems={setDataItems} />
-      );
-    } else if (page === 3) {
-      return (
-        <ImageUploader dataItems={dataItems} setDataItems={setDataItems} />
-      );
+    switch (page) {
+      case 0:
+        return (
+          <PersonalDetail dataItems={dataItems} setDataItems={setDataItems} />
+        );
+      case 1:
+        return <Address dataItems={dataItems} setDataItems={setDataItems} />;
+      case 2:
+        return (
+          <PropertyFeature dataItems={dataItems} setDataItems={setDataItems} />
+        );
+      case 3:
+        return (
+          <ImageUploader dataItems={dataItems} setDataItems={setDataItems} />
+        );
+      default:
+        return null;
     }
   };
 
   return (
-    <Container style={{ margin: "5.5rem auto " }}>
-      <h1>form</h1>
+    <Container style={{ margin: "5rem auto", maxWidth: "800px" }}>
+      <FormTitle>Rental Property Form</FormTitle>
 
+      {/* Progress bar */}
+      <ProgressBar
+        now={((page + 1) / 4) * 100}
+        className='mb-4'
+        label={`Step ${page + 1}/4`}
+      />
+
+      {/* Render step */}
       <div>{pageRender()}</div>
-      <GridContainer>
+
+      {/* Navigation buttons */}
+      <ButtonGroup>
         <Button
+          variant='secondary'
           disabled={page === 0}
-          onClick={() => {
-            setPage((page) => page - 1);
-          }}>
+          onClick={() => setPage((prev) => prev - 1)}>
           Previous
         </Button>
+
         <Button
+          variant={page === 3 ? "success" : "primary"}
           onClick={() => {
             if (page === 3) {
-              alert("form submitted");
               postData();
-              // sendImage();
-              console.log("data", dataItems);
             } else {
-              setPage((page) => page + 1);
+              setPage((prev) => prev + 1);
             }
           }}>
-          {page === 4 ? "Submit" : "Next"}
+          {page === 3 ? "Submit" : "Next"}
         </Button>
-      </GridContainer>
+      </ButtonGroup>
     </Container>
   );
 }

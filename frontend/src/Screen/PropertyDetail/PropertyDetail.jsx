@@ -2,107 +2,124 @@
 
 import React, { useEffect } from "react";
 import crib from "../../Images/pexels-alex-staudinger-1732414.jpg";
-import crib2 from "../../Images/pexels-asad-photo-maldives-1268871.jpg";
-import crib3 from "../../Images/pexels-expect-best-323780.jpg";
-import crib4 from "../../Images/pexels-mark-mccammon-2724749.jpg";
-
-// import "react-alice-carousel/lib/alice-carousel.css";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import ImageWrapper from "../HomeScreen/HomeScreen.element";
-import GridContainer, {
-  TwoColumn,
-} from "../../StyledItems/GridContainer.elements";
-import { Button, Container } from "react-bootstrap";
-import FormContainer from "../Login/Login.element";
+import { Container } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import Map from "../../Components/Map/Map";
 import { PropertyInfo } from "../../redux/slice/propetydetail";
-import { PropertyDetailContainer } from "./PropertyDetail.element";
+import {
+  ImageWrapper,
+  PropertyDetailContainer,
+} from "./PropertyDetail.element";
+import GridContainer, {
+  TwoColumn,
+} from "../../StyledItems/GridContainer.elements";
+import FormContainer from "../Login/Login.element";
 
 const PropertyDetail = () => {
-  const params = useParams();
-  const PropertyID = params.id;
+  const { id } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(PropertyInfo(PropertyID));
-  }, [PropertyInfo]);
+    dispatch(PropertyInfo(id));
+  }, [dispatch, id]);
+
   const property = useSelector(
-    (state) => state.PropertyInfo.PropertyDetailItems[0]
+    (state) => state.PropertyInfo.PropertyDetailItems
   );
-  console.log("testdetail", property);
+
+  if (!property) return <h2>No property found</h2>;
 
   return (
     <PropertyDetailContainer>
-      {!property ? (
-        <h2>no property</h2>
-      ) : (
-        <Container>
-          {/* <Map /> */}
-          <ImageWrapper>
-            <Carousel>
-              <div>
-                <img src={crib} />
-              </div>
-              <div>
-                <img src={crib2} />
-              </div>
-              <div>
-                <img src={crib3} />
-              </div>
-              <div>
-                <img src={crib4} />
-              </div>
-            </Carousel>
-          </ImageWrapper>
-          <TwoColumn>
-            <Container>
+      <Container style={{ maxWidth: "1200px", marginTop: "2rem" }}>
+        {/* IMAGE CAROUSEL */}
+        <ImageWrapper>
+          <Carousel showThumbs={false} autoPlay infiniteLoop>
+            {property.images && property.images.length > 0 ? (
+              property.images.map((image) => (
+                <div key={image.imageId}>
+                  <img
+                    src={`https://stark-spire-28814-ebfee6c4755b.herokuapp.com/uploads/${image.imageUrl}`}
+                    alt='Property'
+                  />
+                </div>
+              ))
+            ) : (
+              <img src={crib} alt='No property' />
+            )}
+          </Carousel>
+          {/* PRICE TAG */}
+          <div className='price-tag'>£ {property.Price}</div>
+        </ImageWrapper>
+
+        {/* TWO COLUMN LAYOUT */}
+        <TwoColumn style={{ marginTop: "2rem", gap: "2rem" }}>
+          {/* LEFT COLUMN: FEATURES + DESCRIPTION + MAP */}
+          <div>
+            {/* FEATURES CARD */}
+            <div className='card-section'>
               <h2>Features</h2>
-              <Container className='background'>
-                <ul>
-                  <GridContainer>
-                    <div>
-                      <li>Bedrooms: {property.Bathrooms}</li>
-                      <li>bathrooms: {property.Bathrooms}</li>
-                      <li>price: $650.00</li>
-                    </div>
-                    <div>
-                      <li>available: {property.Available_date}</li>
-                      <li>City: {property.City}</li>
-                      <li>Post code: {property.PostCode}</li>
-                    </div>
-                  </GridContainer>
-                </ul>
-              </Container>
+              <GridContainer>
+                <div>
+                  <ul>
+                    <li>
+                      <strong>Bedrooms:</strong> {property.Bedrooms}
+                    </li>
+                    <li>
+                      <strong>Bathrooms:</strong> {property.Bathrooms}
+                    </li>
+                    <li>
+                      <strong>Price:</strong> £{property.Price}
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <ul>
+                    <li>
+                      <strong>Available:</strong> {property.Available_date}
+                    </li>
+                    <li>
+                      <strong>City:</strong> {property.City}
+                    </li>
+                    <li>
+                      <strong>Postcode:</strong> {property.Postcode}
+                    </li>
+                  </ul>
+                </div>
+              </GridContainer>
+            </div>
 
-              <h2>Lettings details</h2>
-              <ul className='background'>
-                <li>
-                  Bedrooms: 4 spacious bedrooms, including a luxurious master
-                  suite with a walk-in closet and en-suite bathroom.
-                </li>
-              </ul>
+            {/* DESCRIPTION CARD */}
+            <div className='card-section'>
+              <h2>Property Description</h2>
+              <p>{property.Descriptions}</p>
+            </div>
 
-              <h2>property description</h2>
-              <div className='background'>
-                <p>Description: {property.Descriptions}</p>
-              </div>
-
+            {/* MAP CARD */}
+            <div className='card-section'>
               <Map />
-            </Container>
+            </div>
+          </div>
 
-            <Container>
-              <FormContainer>
-                <h2>contact us</h2>
-                <p>{property.Phone_number}</p>
-                <p>{property.Email}</p>
-              </FormContainer>
-            </Container>
-          </TwoColumn>
-        </Container>
-      )}
+          {/* RIGHT COLUMN: CONTACT */}
+          <div>
+            <FormContainer
+              className='card-section'
+              style={{ textAlign: "center", position: "sticky", top: "2rem" }}>
+              <h2>Contact Us</h2>
+              <p>
+                <strong>Phone:</strong> {property.Phone_number}
+              </p>
+              <p>
+                <strong>Email:</strong> {property.Email}
+              </p>
+            </FormContainer>
+          </div>
+        </TwoColumn>
+      </Container>
     </PropertyDetailContainer>
   );
 };

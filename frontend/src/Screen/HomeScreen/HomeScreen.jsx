@@ -30,60 +30,97 @@ const HomeScreen = () => {
   const property = useSelector((state) => state.lettings.PropertyItems);
   console.log("test", property);
   const recentProperty = property.slice(0, 3);
+  const FeatureCard = ({ icon, title, description }) => (
+    <Col style={{ textAlign: "center", marginBottom: "2rem" }}>
+      <div style={{ fontSize: "4rem", color: "#007bff", marginBottom: "1rem" }}>
+        {icon}
+      </div>
+      <h5>{title}</h5>
+      <p>{description}</p>
+    </Col>
+  );
 
   const navigate = useNavigate();
   return (
     <>
       <ImageWrapper>
-        <Carousel>
-          <div>
-            <img src={crib} />
-          </div>
-          <div>
-            <img src={crib2} />
-          </div>
-          <div>
-            <img src={crib3} />
-          </div>
-          <div>
-            <img src={crib4} />
-          </div>
+        <Carousel showThumbs={false} infiniteLoop autoPlay interval={5000}>
+          {[crib, crib2, crib3, crib4].map((img, idx) => (
+            <div key={idx}>
+              <img src={img} alt={`Property ${idx + 1}`} />
+              <div className='overlay'>
+                <h1>Find Your Dream Home</h1>
+                <button onClick={() => navigate("/letting")}>
+                  Explore Properties
+                </button>
+              </div>
+            </div>
+          ))}
         </Carousel>
       </ImageWrapper>
 
-      <TwoColumn style={{ backgroundColor: "white", padding: "12rem 5rem" }}>
-        <Col>
-          <ImageWrapper>
-            {" "}
-            <img src={crib4} />
-          </ImageWrapper>
-        </Col>
+      <TwoColumn
+        style={{
+          backgroundColor: "#f8f9fa",
+          padding: "6rem 5rem",
+          borderRadius: "20px",
+          gap: "2rem",
+        }}>
         <Col
           style={{
-            textAlign: "center",
-            margin: "6rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+          <img
+            src={crib4}
+            alt='Explore Properties'
+            style={{
+              width: "100%",
+              borderRadius: "20px",
+              boxShadow: "0 10px 25px rgba(0,0,0,0.1)",
+              transition: "transform 0.3s",
+            }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.transform = "scale(1.03)")
+            }
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          />
+        </Col>
+
+        <Col
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            padding: "0 1rem",
           }}>
           <h2
             style={{
-              textAlign: "center",
-              margin: "2rem",
-              color: "blue",
+              color: "#007bff",
+              marginBottom: "1rem",
+              fontWeight: "700",
+              fontSize: "2rem",
             }}>
-            Explore the properties
+            Explore Our Properties
           </h2>
-          Our team of highly skilled professionals comes from diverse
-          backgrounds, bringing expertise in [List Key Areas of Expertise, e.g.,
-          software development, healthcare, finance, etc.]. This diversity
-          allows us to approach problems from multiple perspectives, resulting
-          in creative and practical solutions. We pride ourselves on a
-          collaborative work environment where innovation thrives, and we are
-          committed to upholding the highest standards of quality and integrity.
-          Whether working with startups or large enterprises, we believe in
-          building strong partnerships and empowering our clients to achieve
-          their goals.
+          <p
+            style={{ fontSize: "1.1rem", lineHeight: "1.8", color: "#495057" }}>
+            Discover premium properties in prime locations. Our team helps you
+            find the perfect home or investment opportunity with a personalized
+            touch.
+          </p>
+          <Button
+            onClick={() => navigate("/letting")}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.backgroundColor = "white")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.backgroundColor = "#959ca3ff")
+            }>
+            View Listings
+          </Button>
         </Col>
-
-        {/* </Row> */}
       </TwoColumn>
       <Container
       // style={{
@@ -91,37 +128,23 @@ const HomeScreen = () => {
       //   margin: "10rem",
       // }}
       >
-        <ThreeColumn
-          style={{
-            marginBottom: "10rem",
-          }}>
+        <ThreeColumn style={{ marginBottom: "6rem" }}>
           <Row>
-            <h2
-              style={{
-                textAlign: "center",
-                marginBottom: "2rem",
-                color: "blue",
-              }}>
-              Explore the properties
-            </h2>
-            <Col style={{ textAlign: "center" }}>
-              <FaPhoneAlt style={{ fontSize: "5rem", color: "blue" }} />
-              <Col>
-                Our team of highly skilled professionals comes from diverse
-              </Col>
-            </Col>
-            <Col style={{ textAlign: "center" }}>
-              <CiMail style={{ fontSize: "5rem", color: "blue" }} />
-              <Col>
-                Our team of highly skilled professionals comes from diverse
-              </Col>
-            </Col>
-            <Col style={{ textAlign: "center" }}>
-              <FaHouseChimney style={{ fontSize: "5rem", color: "blue" }} />
-              <Col>
-                Our team of highly skilled professionals comes from diverse
-              </Col>
-            </Col>
+            <FeatureCard
+              icon={<FaPhoneAlt />}
+              title='Call Us'
+              description='Reach our team anytime'
+            />
+            <FeatureCard
+              icon={<CiMail />}
+              title='Email Support'
+              description='Get in touch via email'
+            />
+            <FeatureCard
+              icon={<FaHouseChimney />}
+              title='Property Visits'
+              description='Schedule viewings easily'
+            />
           </Row>
         </ThreeColumn>
       </Container>
@@ -135,18 +158,15 @@ const HomeScreen = () => {
               </Container>
             ) : (
               recentProperty.map((property) => (
-                <Col>
+                <Col key={property.PropertyID}>
                   <LargeContainer
                     cardType='smallCard'
                     id={property.PropertyID}
-                    key={property.PropertyID}
+                    images={property.images}
                     Address={property.Address}
                     Bedrooms={property.Bedrooms}
                     Bathrooms={property.Bathrooms}
-                    Available_date={property.Available_date}
                     Price={property.Price}
-                    Phone_number={property.Phone_number}
-                    City={property.City}
                     onClick={() =>
                       navigate(`/PropertyDetail/${property.PropertyID}`)
                     }
@@ -161,19 +181,14 @@ const HomeScreen = () => {
         </ThreeColumn>
       </Container>
 
-      <Container style={{ marginTop: "5rem" }}>
-        <p className='card-text' style={{ fontSize: "1.2rem" }}>
-          sign up to get latest information about property
-        </p>
-        <InputGroup className='mb-3'>
-          <Form.Control
-            placeholder='Email....'
-            aria-label="Recipient's username"
-            aria-describedby='basic-addon2'
-          />
-          <Button variant='Danger' id='button-addon2' text={"Subscribe"}>
-            Button
-          </Button>
+      <Container style={{ marginTop: "5rem", textAlign: "center" }}>
+        <h3>Subscribe for Latest Listings</h3>
+        <p>Get updates about new properties directly in your inbox</p>
+        <InputGroup
+          className='mb-3'
+          style={{ maxWidth: "500px", margin: "auto" }}>
+          <Form.Control placeholder='Email...' />
+          <Button text='Subscribe' />
         </InputGroup>
       </Container>
     </>

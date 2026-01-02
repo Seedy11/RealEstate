@@ -40,18 +40,20 @@ const LargeContainer = (props) => {
             <Col>
               <ImageWrapper>
                 <Carousel>
-                  <div>
-                    <img src={crib} />
-                  </div>
-                  <div>
-                    <img src={crib2} />
-                  </div>
-                  <div>
-                    <img src={crib3} />
-                  </div>
-                  <div>
-                    <img src={crib4} />
-                  </div>
+                  {props.images && props.images.length > 0 ? (
+                    props.images.map((image) => (
+                      <div key={image.Image_id}>
+                        <img
+                          src={`https://stark-spire-28814-ebfee6c4755b.herokuapp.com/uploads/${image.Image_url}`}
+                          alt='Property'
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <div>
+                      <img src={crib} alt='No property' />
+                    </div>
+                  )}
                 </Carousel>
               </ImageWrapper>
             </Col>
@@ -111,18 +113,20 @@ const LargeContainer = (props) => {
             <Col>
               <ImageWrapper>
                 <Carousel>
-                  <div>
-                    <img src={crib} />
-                  </div>
-                  <div>
-                    <img src={crib2} />
-                  </div>
-                  <div>
-                    <img src={crib3} />
-                  </div>
-                  <div>
-                    <img src={crib4} />
-                  </div>
+                  {props.images && props.images.length > 0 ? (
+                    props.images.map((image) => (
+                      <div key={image.Image_id}>
+                        <img
+                          src={`https://stark-spire-28814-ebfee6c4755b.herokuapp.com/uploads/${image.Image_url}`}
+                          alt='Property'
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <div>
+                      <img src={crib} alt='No property' />
+                    </div>
+                  )}
                 </Carousel>
               </ImageWrapper>
             </Col>

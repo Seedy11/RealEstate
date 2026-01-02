@@ -8,7 +8,7 @@ export const PropertyInfo = createAsyncThunk(
   async (PropertyID, thunkAPI) => {
     try {
       const propertiesData = await axios.get(
-        `https://peaceful-ocean-19804-a5eacab3df7e.herokuapp.com/rentalProperties/propertyList/${PropertyID}`
+        `https://stark-spire-28814-ebfee6c4755b.herokuapp.com/rentalProperties/propertyList/${PropertyID}`
       );
       return propertiesData.data;
       // console.log(propertiesData.data);

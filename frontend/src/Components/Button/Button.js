@@ -6,7 +6,7 @@ import ContainerButton from "./Button.element";
 const Button = ({ text, onClick }) => {
   return (
     <ContainerButton>
-      <button onClick={onClick} type='Button' class='btn btn-primary'>
+      <button onClick={onClick} type='button'>
         {text}
       </button>
     </ContainerButton>

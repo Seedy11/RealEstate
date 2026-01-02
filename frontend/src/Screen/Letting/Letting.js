@@ -1,107 +1,83 @@
 /** @format */
-
-import React, { useEffect, useState } from "react";
-import LargeContainer from "../../Components/LargeContainer/LargeContainer";
-import axios from "axios";
+import React, { useEffect } from "react";
+import { Container, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { Container } from "react-bootstrap";
-import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 import { useDispatch, useSelector } from "react-redux";
+import LargeContainer from "../../Components/LargeContainer/LargeContainer";
 import { Property } from "../../redux/slice/letting";
+import DropdownMenu from "react-bootstrap/esm/DropdownMenu";
 
 function Letting() {
   const navigate = useNavigate();
-  const [properties, setProperties] = useState();
   const dispatch = useDispatch();
-  // const [deleteProperty, setDeleteProperty] = useState();
-  const bedroom = [
+  const properties = useSelector((state) => state.lettings.PropertyItems || []);
+
+  const bedroomOptions = [
     "1 Bedroom",
     "2 Bedroom",
     "3 Bedroom",
     "4 Bedroom",
     "5 Bedroom",
   ];
+  const houseTypeOptions = ["Flat", "Detached", "Semi-Detached", "Terraced"];
+  const priceOptions = ["£500", "£1000", "£1500", "£2000", "£2500"];
 
   useEffect(() => {
     dispatch(Property());
-  }, [Property]);
-  const property = useSelector((state) => state.lettings.PropertyItems);
-  console.log("test", property);
-
-  // function deletePropertyList(property_id) {
-  //   axios.delete(
-  //     `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/delete/${property_id}`
-  //   );
-  //   setProperties(
-  //     properties.filter((deleteProperty) => {
-  //       return deleteProperty.property_id !== property_id;
-  //     })
-  //   );
-  // }
-
-  React.useEffect(() => {
-    async function searchPropertyList() {
-      try {
-        const getData = await axios.get(
-          `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/citySearch/?City='yvyutv'&Bedrooms=8`
-        );
-        console.log("apis", getData);
-      } catch (error) {
-        return error;
-      }
-    }
-
-    searchPropertyList();
-  }, []);
-  // }
+  }, [dispatch]);
 
   return (
-    <Container>
-      {/* <LettingContainer> */}
-      <h1>Letting</h1>
-      {/* <GridContainer> */}
-      {/* <Container>
-        <DropdownMenu DropdownName='Postcode' option={bedroom} />
-        <DropdownMenu DropdownName='Max beds' option={bedroom} />
-        <DropdownMenu DropdownName='Max beds' option={bedroom} />
+    <Container style={{ padding: "2rem 0" }}>
+      <h1 style={{ marginBottom: "2rem", fontWeight: "bold" }}>Lettings</h1>
 
-        <DropdownMenu DropdownName='house Type' option={bedroom} />
-        <DropdownMenu DropdownName='Min price' option={bedroom} />
-      </Container> */}
-      {property.length === 0 ? (
-        <Container>
-          <p>letting Not available </p>
-        </Container>
+      {/* Filters */}
+      <Row className='mb-4 g-3'>
+        <Col xs={6} md={2}>
+          <DropdownMenu DropdownName='Postcode' option={bedroomOptions} />
+        </Col>
+        <Col xs={6} md={2}>
+          <DropdownMenu DropdownName='Max Beds' option={bedroomOptions} />
+        </Col>
+        <Col xs={6} md={2}>
+          <DropdownMenu DropdownName='Min Beds' option={bedroomOptions} />
+        </Col>
+        <Col xs={6} md={2}>
+          <DropdownMenu DropdownName='House Type' option={houseTypeOptions} />
+        </Col>
+        <Col xs={6} md={2}>
+          <DropdownMenu DropdownName='Min Price' option={priceOptions} />
+        </Col>
+        <Col xs={6} md={2}>
+          <DropdownMenu DropdownName='Max Price' option={priceOptions} />
+        </Col>
+      </Row>
+
+      {/* Property Grid */}
+      {properties.length === 0 ? (
+        <p>No properties available for letting</p>
       ) : (
-        property.map((property) => (
-          <>
-            <LargeContainer
-              cardType='LargeCard'
-              id={property.PropertyID}
-              key={property.PropertyID}
-              Address={property.Address}
-              Bedrooms={property.Bedrooms}
-              Bathrooms={property.Bathrooms}
-              Available_date={property.Available_date}
-              Price={property.Price}
-              Phone_number={property.Phone_number}
-              City={property.City}
-              onClick={() => navigate(`/PropertyDetail/${property.PropertyID}`)}
-              // delete={() => {
-              //   deletePropertyList(property.PropertyID);
-              // }}
-            />
-          </>
-        ))
+        <>
+          {properties.map((property) => (
+            <Col key={property.PropertyID}>
+              <LargeContainer
+                cardType='LargeCard'
+                images={property.images}
+                id={property.PropertyID}
+                Address={property.Address}
+                Bedrooms={property.Bedrooms}
+                Bathrooms={property.Bathrooms}
+                Available_date={property.Available_date}
+                Price={property.Price}
+                Phone_number={property.Phone_number}
+                City={property.City}
+                onClick={() =>
+                  navigate(`/PropertyDetail/${property.PropertyID}`)
+                }
+              />
+            </Col>
+          ))}
+        </>
       )}
-      <Container>
-        <DropdownMenu DropdownName='Postcode' option={bedroom} />
-        <DropdownMenu DropdownName='Max beds' option={bedroom} />
-        <DropdownMenu DropdownName='Max beds' option={bedroom} />
-
-        <DropdownMenu DropdownName='house Type' option={bedroom} />
-        <DropdownMenu DropdownName='Min price' option={bedroom} />
-      </Container>
     </Container>
   );
 }

@@ -1,15 +1,12 @@
 /** @format */
-
 import React, { useEffect, useState } from "react";
-import { Col, Container, Row } from "react-bootstrap";
+import { Container, Row, Col, Card, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
-  ResponsiveContainer,
   ComposedChart,
-  Line,
   Area,
   Bar,
+  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -20,27 +17,34 @@ import {
   Cell,
 } from "recharts";
 import { Property } from "../../redux/slice/letting";
-import {
-  ThreeColumn,
-  TwoColumn,
-} from "../../StyledItems/GridContainer.elements";
 import LargeContainer from "../../Components/LargeContainer/LargeContainer";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
+import styled from "styled-components";
 
-function Dashboard() {
+const MetricCard = styled(Card)`
+  text-align: center;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const demoPieData = [
+  { name: "Sold", value: 400 },
+  { name: "Available", value: 300 },
+  { name: "Pending", value: 200 },
+  { name: "Rented", value: 100 },
+];
+
+const Dashboard = () => {
   const dispatch = useDispatch();
-  const demoUrl = "https://codesandbox.io/p/sandbox/simple-radar-chart-2p5sxm";
-  const [properties, setProperties] = useState();
-  const data = [
-    { name: "Group A", value: 400 },
-    { name: "Group B", value: 300 },
-    { name: "Group C", value: 300 },
-    { name: "Group D", value: 200 },
-  ];
-
-  const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
   const navigate = useNavigate();
+  const [properties, setProperties] = useState([]);
+  const property = useSelector((state) => state.lettings.PropertyItems || []);
+
+  useEffect(() => {
+    dispatch(Property());
+  }, [dispatch]);
 
   const RADIAN = Math.PI / 180;
   const renderCustomizedLabel = ({
@@ -62,177 +66,51 @@ function Dashboard() {
         y={y}
         fill='white'
         textAnchor={x > cx ? "start" : "end"}
-        dominantBaseline='central'>
+        dominantBaseline='central'
+        fontSize={12}>
         {`${(percent * 100).toFixed(0)}%`}
       </text>
     );
   };
-  function deletePropertyList(property_id) {
-    axios.delete(
-      `https://realestate-heruko-5c11eac23d0e.herokuapp.com/rentalProperties/delete/${property_id}`
-    );
-    setProperties(
-      properties.filter((deleteProperty) => {
-        return deleteProperty.property_id !== property_id;
-      })
-    );
-  }
 
-  useEffect(() => {
-    dispatch(Property());
-  }, [Property]);
-  const property = useSelector((state) => state.lettings.PropertyItems);
-  console.log("test", property);
   return (
-    <ResponsiveContainer
-      style={{
-        margin: "9rem 0rem",
-        // backgroundColor: "black",
-      }}>
-      <ThreeColumn>
-        <Row
-          style={{
-            margin: "1rem",
-            backgroundColor: "white",
-            maxHeight: "300px",
-          }}>
-          {/* <ResponsiveContainer> */}
-          <ComposedChart
-            width={500}
-            height={250}
-            data={property}
-            margin={{
-              top: 20,
-              right: 0,
-              bottom: 0,
-              left: 20,
-            }}>
-            <CartesianGrid stroke='#f5f5f5' />
-            <XAxis dataKey='' scale='band' />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Area
-              type='monotone'
-              dataKey='Price'
-              fill='#8884d8'
-              stroke='#8884d8'
-            />
-            <Bar dataKey='' barSize={20} fill='#413ea0' />
-            <Line type='monotone' dataKey='PropertyID' stroke='blue' />
-          </ComposedChart>
-          {/* </ResponsiveContainer> */}
-        </Row>
-        <Row
-          style={{
-            margin: "1rem",
-            backgroundColor: "white",
-            textAlign: "center",
-            paddingTop: "8rem",
-          }}>
-          {/* <ResponsiveContainer> */}
-          <div>
-            <h3>Net income</h3>
-            <h3>£36500</h3>
-          </div>
-          {/* </ResponsiveContainer> */}
-        </Row>
-        <Row
-          style={{
-            margin: "1rem",
-            // backgroundColor: "white",
-            textAlign: "center",
-          }}>
-          {/* <ResponsiveContainer> */}
-          <Row
-            style={{
-              margin: "1rem",
-              backgroundColor: "white",
-            }}>
-            <h3>Revenue</h3>
-            <h2>£5000000</h2>
-          </Row>
-          <Row
-            style={{
-              margin: "1rem",
-              backgroundColor: "white",
-              padding: "3rem",
-            }}>
-            <h3>£100500</h3>
-          </Row>
-          {/* </ResponsiveContainer> */}
-        </Row>
-      </ThreeColumn>
-      <TwoColumn>
-        {" "}
-        <Container
-          style={
-            {
-              // margin: "2rem",
-              // backgroundColor: "white",
-            }
-          }>
-          {/* <ResponsiveContainer> */}
-          <div>
-            {property.length === 0 ? (
-              <Container>
-                <p>letting Not available </p>
-              </Container>
-            ) : (
-              property.map((property) => (
-                <>
-                  <LargeContainer
-                    cardType='adminCard'
-                    PropertyID={property.PropertyID}
-                    key={property.PropertyID}
-                    Address={property.Address}
-                    Bedrooms={property.Bedrooms}
-                    Bathrooms={property.Bathrooms}
-                    Available_date={property.Available_date}
-                    Price={property.Price}
-                    Phone_number={property.Phone_number}
-                    City={property.City}
-                    onClick={() =>
-                      navigate(`/PropertyDetail/${property.property_id}`)
-                    }
-                    delete={() => {
-                      // deletePropertyList(property.property_id);
-                      navigate("/");
-                    }}
-                  />
-                </>
-              ))
-            )}
-            <Link to='/rentalForm' className='nav-decoration'>
-              Add Property
-            </Link>
-          </div>
-          {/* </ResponsiveContainer> */}
-        </Container>{" "}
-        <Container
-          style={{
-            marginRight: "2rem",
-            backgroundColor: "white",
-          }}>
-          {/* <ResponsiveContainer> */}
-          <PieChart width={400} height={400}>
-            <Pie
-              data={data}
-              cx='50%'
-              cy='50%'
-              labelLine={false}
-              label={renderCustomizedLabel}
-              outerRadius={80}
-              fill='#8884d8'
-              dataKey='value'>
-              {data.map((entry, index) => (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={COLORS[index % COLORS.length]}
-                />
-              ))}
+    <Container fluid style={{ marginTop: "5rem" }}>
+      <h2 className='mb-4'>Dashboard</h2>
+
+      {/* Metrics */}
+      <Row className='mb-4'>
+        <Col md={4}>
+          <MetricCard>
+            <h5>Total Revenue</h5>
+            <h3>£5,000,000</h3>
+          </MetricCard>
+        </Col>
+        <Col md={4}>
+          <MetricCard>
+            <h5>Net Income</h5>
+            <h3>£36,500</h3>
+          </MetricCard>
+        </Col>
+        <Col md={4}>
+          <MetricCard>
+            <h5>Total Properties</h5>
+            <h3>{property.length}</h3>
+          </MetricCard>
+        </Col>
+      </Row>
+
+      {/* Charts */}
+      <Row className='mb-5'>
+        <Col lg={8} md={12}>
+          <Card className='p-3 mb-4'>
+            <h5>Price Trend</h5>
+            <ComposedChart
+              width={600}
+              height={300}
+              data={property}
+              margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
               <CartesianGrid stroke='#f5f5f5' />
-              <XAxis dataKey='' scale='band' />
+              <XAxis dataKey='Address' />
               <YAxis />
               <Tooltip />
               <Legend />
@@ -242,15 +120,69 @@ function Dashboard() {
                 fill='#8884d8'
                 stroke='#8884d8'
               />
-              <Bar dataKey='' barSize={20} fill='#413ea0' />
-              <Line type='monotone' dataKey='PropertyID' stroke='blue' />
-            </Pie>
-          </PieChart>
-          {/* </ResponsiveContainer> */}
-        </Container>
-      </TwoColumn>
-    </ResponsiveContainer>
+              <Bar dataKey='Price' barSize={20} fill='#413ea0' />
+              <Line type='monotone' dataKey='PropertyID' stroke='#ff7300' />
+            </ComposedChart>
+          </Card>
+        </Col>
+        <Col lg={4} md={12}>
+          <Card className='p-3 mb-4'>
+            <h5>Property Status</h5>
+            <PieChart width={300} height={300}>
+              <Pie
+                data={demoPieData}
+                cx='50%'
+                cy='50%'
+                labelLine={false}
+                label={renderCustomizedLabel}
+                outerRadius={100}
+                fill='#8884d8'
+                dataKey='value'>
+                {demoPieData.map((entry, index) => (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
+                ))}
+              </Pie>
+            </PieChart>
+          </Card>
+        </Col>
+      </Row>
+
+      {/* Properties List */}
+      <h4 className='mb-3'>Properties</h4>
+      <Row className='g-4'>
+        {property.length === 0 ? (
+          <Col>
+            <p>No properties available.</p>
+          </Col>
+        ) : (
+          property.map((prop) => (
+            <Col md={4} key={prop.PropertyID}>
+              <LargeContainer
+                cardType='adminCard'
+                PropertyID={prop.PropertyID}
+                Address={prop.Address}
+                Bedrooms={prop.Bedrooms}
+                Bathrooms={prop.Bathrooms}
+                Price={prop.Price}
+                Phone_number={prop.Phone_number}
+                City={prop.City}
+                onClick={() => navigate(`/PropertyDetail/${prop.PropertyID}`)}
+              />
+            </Col>
+          ))
+        )}
+      </Row>
+
+      <div className='mt-4'>
+        <Link to='/rentalForm'>
+          <Button variant='primary'>Add Property</Button>
+        </Link>
+      </div>
+    </Container>
   );
-}
+};
 
 export default Dashboard;
